@@ -3,8 +3,9 @@
 An Urdu-first Islamic reading app starter project using Kotlin + Android WebView.
 
 ## Included
-- Quran surah list and ayah reader
-- Arabic Quran text with Urdu Jalandhri translation via AlQuran Cloud API
+- Quran reading modes: Arabic-only and Arabic with Urdu Jalandhri translation
+- Surah-by-surah audio recitation by Mishary Rashid Alafasy, with ayah controls (internet required)
+- Readable system Arabic font (no Al Qalam Quran Majeed font)
 - Sahih al-Bukhari Arabic + Urdu edition loader using fawazahmed0/hadith-api
 - Search/filter and locally saved ayah/hadith items
 - Emerald/gold Islamic visual theme
@@ -24,5 +25,5 @@ Follow `BUILD_FROM_MOBILE_UR.md`. Upload the contents of this folder to a GitHub
 - Internet is required for Quran and Hadith data.
 - Hadith Arabic/Urdu records are paired by dataset order. Before public release, validate record counts, numbering, chapter metadata, and translation alignment against a trusted printed edition. This is not a scholarly verification claim.
 - The Hadith screen currently renders the first 150 records initially; pagination and chapter/book navigation remain to be added.
-- Offline downloads, audio recitation, prayer times, qibla, notifications, tafsir, and other hadith collections are not included yet.
+- Offline Quran/audio downloads, background playback controls, prayer-time notifications, tafsir, and other hadith collections are not included yet.
 - No APK has yet been compiled or tested on a physical device.
