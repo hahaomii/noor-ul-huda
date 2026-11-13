@@ -42,6 +42,37 @@ body{background:linear-gradient(160deg,#071b15 0%,#0b241b 48%,#06140f 100%);font
 .photo-modal-inner img{width:100%;max-height:65vh;object-fit:contain;border-radius:10px;margin-top:10px}
 .download-link{display:inline-block;text-decoration:none;margin:8px;padding:12px 16px}
 @media(min-width:600px){.gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.gallery-card img{height:180px}}
+
+/* Modern emerald Islamic home refresh */
+:root{--bg:#f8f9fa;--panel:#ffffff;--panel2:#f1f7f4;--gold:#d4af37;--cream:#172b25;--muted:#66756f;--line:#e2ebe6;--green:#0f8b6d}
+body{background:#f8f9fa;color:#172b25;font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+.top{background:linear-gradient(135deg,#0f8b6d,#075e54);color:#fff;border:0;box-shadow:0 6px 22px #075e5420}
+.top .brand{color:#fff;font-size:25px}.top small{color:#d8f2e8}
+.wrap{max-width:600px;padding:16px 15px 112px}
+.hero{background:linear-gradient(135deg,#0f8b6d,#075e54);color:#fff;border:0;border-radius:25px;padding:24px 20px;box-shadow:0 10px 28px #075e5428}
+.hero .bism{color:#fff;font-size:26px}.hero p{color:#e2f5ed}.hero .date{color:#d4f1e5;font-size:13px}
+.section{background:#fff;border:1px solid #e6eee9;border-radius:20px;color:#172b25;box-shadow:0 4px 16px #102b2310;padding:17px}
+.section h2,.section-title{color:#0f8b6d}.muted,.meta{color:#687970}
+.translation{color:#34483f}
+.grid{gap:12px}.tile{background:#fff;border:1px solid #e4eee8;color:#172b25;border-radius:19px;min-height:108px;box-shadow:0 4px 15px #102b2310;padding:15px 10px}
+.tile .ico{color:#0f8b6d;font-size:28px}.tile b{color:#173b2e;font-size:15px}.tile small{color:#718078}
+.btn{background:#fff;color:#0f725b;border:1px solid #b7d8c9;border-radius:12px}.btn.primary{background:#d4af37;border-color:#d4af37;color:#173326}
+.field{background:#f4f8f5;color:#172b25;border:1px solid #e0e9e3}
+.listitem{border-color:#e5eee8}.listitem b{color:#0b775d}
+.bottom{background:#fff;border-top:1px solid #e3ece6;box-shadow:0 -5px 18px #102b2310;padding:9px 2px calc(9px + env(safe-area-inset-bottom))}
+.bottom button{color:#64746c;font-size:10px}.bottom button.active{color:#0f8b6d}.bottom span{font-size:20px}
+.sitefooter{color:#0f8b6d;border-color:#dce9e1}.sitefooter .latin{color:#73847b}
+.home-greeting{display:flex;align-items:center;justify-content:space-between;gap:10px;color:#fff}
+.home-greeting h2{font-size:25px;margin:0;color:#fff}.home-greeting .moon{font-size:32px}
+.home-sub{font-size:13px;color:#e0f4eb;margin-top:5px}
+.home-countdown{margin-top:17px;background:#fff;color:#0f8b6d;border-radius:16px;padding:13px;text-align:center;font-weight:700}
+.home-section-title{font-size:19px;color:#0f8b6d;margin:23px 3px 12px;font-weight:700}
+.home-quran-card{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid #e5eee8;border-radius:17px;padding:14px;margin:10px 0;box-shadow:0 4px 14px #102b2310}
+.home-quran-card h4{font-size:14px;margin:0 0 4px;color:#173b2e}.home-quran-card p{font-size:12px;margin:0;color:#748078}
+.home-quran-card button{background:#d4af37;color:#173326;border:0;border-radius:10px;padding:9px 13px;font-weight:700;white-space:nowrap}
+.home-quran-card .qicon{font-size:24px;margin-right:8px}
+.home-card-left{display:flex;align-items:center;min-width:0}
+@media(min-width:600px){.wrap{padding-top:22px}}
 </style></head><body>
 <div id="splash" class="splash"><div class="mark">۞</div><h1>نور الہدیٰ</h1><p>قرآن • حدیث • دعائیں</p></div>
 <header class="top"><div class="brand">نور الہدیٰ</div><small>NOOR UL HUDA</small></header><main id="app" class="wrap"></main>
@@ -74,7 +105,54 @@ const duas=[
 let reminderIndex=0;function drawReminder(){let box=document.getElementById('reminderContent');if(!box)return;let d=duas[reminderIndex];box.innerHTML='<div class="arabic">'+d[1]+'</div><p class="translation center">'+(language==='en'?d[4]:d[2])+'</p><div class="meta center">'+d[0]+' • '+d[3]+'</div>'}function refreshReminder(){reminderIndex=(reminderIndex+1)%duas.length;drawReminder()}
 function go(p){current=p;document.querySelectorAll('.bottom button').forEach(b=>b.classList.toggle('active',b.dataset.page===p));render()}
 document.querySelectorAll('.bottom button').forEach(b=>b.onclick=()=>go(b.dataset.page));
-function home(){if(language==='en')return `<section class="hero"><div class="bism">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div><p>In the name of Allah, the Most Compassionate, the Most Merciful</p><div class="date">Hearts find peace in the remembrance of Allah</div></section><section class="section"><h2>Peace be upon you</h2><p class="translation">Welcome to Noor Ul Huda. The Holy Quran, selected Hadith, daily duas and useful worship tools in one place.</p><div class="row"><input class="field" id="username" placeholder="Enter your name" maxlength="32"><button class="btn" onclick="saveName()">Save</button></div><small class="muted" id="greet"></small></section><div class="grid"><button class="tile" onclick="go('quran')"><div class="ico">۞</div><b>The Holy Quran</b><small>114 Surahs, translation</small></button><button class="tile" onclick="go('hadith')"><div class="ico">✧</div><b>Prophetic Hadith</b><small>Selected narrations</small></button><button class="tile" onclick="go('dua')"><div class="ico">🤲</div><b>Daily Duas</b><small>Supplications</small></button><button class="tile" onclick="go(\\'tools\\')"><div class="ico">◉</div><b>Dhikr & Tools</b><small>Tasbeeh and prayer times</small></button><button class="tile" data-page="weather" onclick="go(this.dataset.page)"><div class="ico">🌤</div><b>Weather</b><small>Choose a city</small></button></div><section class="section"><h2>Reminder</h2><div id="reminderContent"></div><button class="btn primary" onclick="refreshReminder()">↻ Refresh reminder</button></section>`;return `<section class="hero"><div class="bism">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div><p>اللہ کے نام سے جو نہایت مہربان، رحم فرمانے والا ہے</p><div class="date" id="hijri">اللہ کے ذکر سے دلوں کو سکون ملتا ہے</div></section><section class="section"><h2>السلام علیکم ورحمة اللہ</h2><p class="translation">نور الہدیٰ میں خوش آمدید۔ قرآنِ کریم، مستند احادیث، روزمرہ مسنون دعائیں اور عبادت کے مفید ٹولز ایک جگہ۔</p><div class="row"><input class="field" id="username" placeholder="اپنا نام لکھیں" maxlength="32"><button class="btn" onclick="saveName()">محفوظ</button></div><small class="muted" id="greet"></small></section><div class="grid"><button class="tile" onclick="go('quran')"><div class="ico">۞</div><b>قرآنِ کریم</b><small>114 سورتیں، ترجمہ</small></button><button class="tile" onclick="go('hadith')"><div class="ico">✧</div><b>احادیثِ نبوی ﷺ</b><small>حدیث کی کتب</small></button><button class="tile" onclick="go('dua')"><div class="ico">🤲</div><b>مسنون دعائیں</b><small>روزمرہ کی دعائیں</small></button><button class="tile" onclick="go(\'tools\')"><div class="ico">◉</div><b>اذکار و ٹولز</b><small>تسبیح، نماز کے اوقات</small></button><button class="tile" data-page="weather" onclick="go(this.dataset.page)"><div class="ico">🌤</div><b>موسم</b><small>شہر منتخب کریں</small></button></div><section class="section"><h2>آج کی یاد دہانی</h2><div id="reminderContent"></div><button class="btn primary" onclick="refreshReminder()">↻ یاد دہانی تبدیل کریں</button></section>`}
+function home(){
+let en=language==='en';
+let date=new Date().toLocaleDateString(en?'en-US':'ur-PK',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+if(en)return `
+<section class="hero">
+ <div class="home-greeting"><div><h2>Assalamualaikum</h2><div class="home-sub">Welcome to Noor Ul Huda</div></div><div class="moon">🌙</div></div>
+ <div class="date">${date}</div>
+ <div class="home-countdown">﷽ &nbsp; In the remembrance of Allah, hearts find peace</div>
+</section>
+<div class="home-section-title">Main Features</div>
+<div class="grid">
+ <button class="tile" onclick="go('quran')"><div class="ico">📖</div><b>Read Quran</b><small>Arabic and translations</small></button>
+ <button class="tile" onclick="go('dua')"><div class="ico">🤲</div><b>Daily Duas</b><small>Authentic supplications</small></button>
+ <button class="tile" onclick="go('tools')"><div class="ico">📿</div><b>Dhikr & Tasbeeh</b><small>Daily remembrance</small></button>
+ <button class="tile" onclick="go('history')"><div class="ico">📜</div><b>Islamic History</b><small>Prophets and sacred places</small></button>
+ <button class="tile" onclick="go('weather')"><div class="ico">🌤️</div><b>Weather</b><small>Choose your city</small></button>
+ <button class="tile" onclick="go('azan')"><div class="ico">🕌</div><b>Prayer & Azan</b><small>Prayer times and alerts</small></button>
+</div>
+<div class="home-section-title">Quran Reading</div>
+<div class="home-quran-card"><div class="home-card-left"><span class="qicon">📖</span><div><h4>Quran Arabic Only</h4><p>Complete Arabic Mushaf</p></div></div><button onclick="openQuranMode('arabic')">Open</button></div>
+<div class="home-quran-card"><div class="home-card-left"><span class="qicon">🇵🇰</span><div><h4>Arabic + Urdu</h4><p>Urdu translation by ayah</p></div></div><button onclick="openQuranMode('urdu');go('quran')">Open</button></div>
+<div class="home-quran-card"><div class="home-card-left"><span class="qicon">🇬🇧</span><div><h4>Arabic + English</h4><p>English translation by ayah</p></div></div><button onclick="openQuranMode('english');go('quran')">Open</button></div>
+<div class="home-section-title">Audio Quran</div>
+<div class="home-quran-card"><div class="home-card-left"><span class="qicon">🎧</span><div><h4>Arabic Recitation</h4><p>Listen to complete Surahs online</p></div></div><button onclick="audioQuranPage()">Play</button></div>
+<section class="section" style="margin-top:16px"><h2>Today's Reminder</h2><div id="reminderContent"></div><button class="btn primary" onclick="refreshReminder()">↻ Refresh reminder</button></section>`;
+return `
+<section class="hero">
+ <div class="home-greeting"><div><h2>السلام علیکم</h2><div class="home-sub">نور الہدیٰ میں خوش آمدید</div></div><div class="moon">🌙</div></div>
+ <div class="date">${date}</div>
+ <div class="home-countdown">﷽ &nbsp; اللہ کے ذکر سے دلوں کو سکون ملتا ہے</div>
+</section>
+<div class="home-section-title">اہم خصوصیات</div>
+<div class="grid">
+ <button class="tile" onclick="go('quran')"><div class="ico">📖</div><b>قرآنِ کریم</b><small>عربی اور تراجم</small></button>
+ <button class="tile" onclick="go('dua')"><div class="ico">🤲</div><b>مسنون دعائیں</b><small>روزمرہ کی دعائیں</small></button>
+ <button class="tile" onclick="go('tools')"><div class="ico">📿</div><b>اذکار و تسبیح</b><small>اللہ کا ذکر</small></button>
+ <button class="tile" onclick="go('history')"><div class="ico">📜</div><b>اسلامی تاریخ</b><small>انبیاء اور مقدس مقامات</small></button>
+ <button class="tile" onclick="go('weather')"><div class="ico">🌤️</div><b>موسم</b><small>شہر منتخب کریں</small></button>
+ <button class="tile" onclick="go('azan')"><div class="ico">🕌</div><b>نماز اور اذان</b><small>اوقات اور نوٹیفکیشن</small></button>
+</div>
+<div class="home-section-title">قرآن پڑھیں</div>
+<div class="home-quran-card"><div class="home-card-left"><span class="qicon">📖</span><div><h4>صرف عربی قرآن</h4><p>مکمل عربی مصحف</p></div></div><button onclick="go('quran');openQuranMode('arabic')">کھولیں</button></div>
+<div class="home-quran-card"><div class="home-card-left"><span class="qicon">🇵🇰</span><div><h4>عربی + اردو</h4><p>ہر آیت کے ساتھ اردو ترجمہ</p></div></div><button onclick="go('quran');openQuranMode('urdu')">کھولیں</button></div>
+<div class="home-quran-card"><div class="home-card-left"><span class="qicon">🇬🇧</span><div><h4>عربی + انگریزی</h4><p>ہر آیت کے ساتھ انگریزی ترجمہ</p></div></div><button onclick="go('quran');openQuranMode('english')">کھولیں</button></div>
+<div class="home-section-title">آڈیو قرآن</div>
+<div class="home-quran-card"><div class="home-card-left"><span class="qicon">🎧</span><div><h4>عربی تلاوت</h4><p>مکمل سورتیں آن لائن سنیں</p></div></div><button onclick="audioQuranPage()">سنیں</button></div>
+<section class="section" style="margin-top:16px"><h2>آج کی یاد دہانی</h2><div id="reminderContent"></div><button class="btn primary" onclick="refreshReminder()">↻ یاد دہانی تبدیل کریں</button></section>`;
+}
 function render(){if(current==='home'){app.innerHTML=home();let n=localStorage.getItem('noorName');if(n){document.getElementById('greet').textContent='خوش آمدید، '+n;document.getElementById('username').value=n}drawReminder();return}if(current==='quran'){quranPage();return}if(current==='hadith'){hadithPageView();return}if(current==='dua'){app.innerHTML=language==='en'?'<section class="section"><h2>Daily Duas</h2><p class="muted">Arabic text, English translation and reference</p><input class="field" id="duasearch" placeholder="Search duas"><div id="dualist"></div></section>':'<section class="section"><h2>مسنون دعائیں</h2><p class="muted">عربی متن، اردو ترجمہ اور حوالہ</p><input class="field" id="duasearch" placeholder="دعا تلاش کریں"><div id="dualist"></div></section>';drawDuas();document.getElementById('duasearch').oninput=drawDuas;return}if(current==='tools'){toolsPage();return}if(current==='history'){historyPage();return}if(current==='prophets'){prophetHistoryPage();return}if(current==='photoGallery'){photoGalleryPage();return}if(current==='weather'){weatherPage();return}if(current==='azan'){azanPage();return}}
 
 const prophets=[
@@ -121,10 +199,10 @@ function azanPage(){let en=language==='en';app.innerHTML='<section class="sectio
 function saveName(){let n=document.getElementById('username').value.trim();if(n){localStorage.setItem('noorName',n);document.getElementById('greet').textContent='خوش آمدید، '+n}}
 let quranMode='arabic',audioSurah=1,audioAyah=1,audioTotal=7,quranAudio=null;
 async function loadSurahs(){if(surahs.length)return surahs;let r=await fetch('https://api.alquran.cloud/v1/surah');let d=await r.json();surahs=d.data;return surahs}
-async function quranPage(){let en=language==='en';app.innerHTML='<section class="section"><h2>'+(en?'The Holy Quran':'قرآنِ کریم')+'</h2><p class="muted">'+(en?'Choose how you want to read or listen':'قرآن پڑھنے یا سننے کا طریقہ منتخب کریں')+'</p><div class="grid"><button class="tile" onclick="openQuranMode(\'arabic\')"><div class="ico">۞</div><b>'+(en?'Arabic Quran':'صرف قرآن')+'</b><small>'+(en?'Arabic text only':'صرف عربی متن')+'</small></button><button class="tile" onclick="openQuranMode(\'urdu\')"><div class="ico">ترجمہ</div><b>'+(en?'Arabic + Urdu':'قرآن مع اردو ترجمہ')+'</b><small>'+(en?'Arabic with Urdu translation':'ہر آیت کے نیچے اردو ترجمہ')+'</small></button><button class="tile" onclick="audioQuranPage()"><div class="ico">♫</div><b>'+(en?'Audio Quran':'آڈیو قرآن')+'</b><small>'+(en?'Mishary Alafasy recitation':'مشاری العفاسی کی تلاوت')+'</small></button></div><div id="surahbrowser"></div></section>'; }
+async function quranPage(){let en=language==='en';app.innerHTML='<section class="section"><h2>'+(en?'The Holy Quran':'قرآنِ کریم')+'</h2><p class="muted">'+(en?'Choose a reading or listening format':'قرآن پڑھنے یا سننے کا طریقہ منتخب کریں')+'</p><div class="grid"><button class="tile" onclick="openQuranMode(\'arabic\')"><div class="ico">۞</div><b>'+(en?'Arabic Only':'صرف عربی قرآن')+'</b><small>'+(en?'Arabic text':'صرف عربی متن')+'</small></button><button class="tile" onclick="openQuranMode(\'urdu\')"><div class="ico">🇵🇰</div><b>'+(en?'Arabic + Urdu':'عربی + اردو')+'</b><small>'+(en?'Urdu translation':'اردو ترجمہ')+'</small></button><button class="tile" onclick="openQuranMode(\'english\')"><div class="ico">🇬🇧</div><b>'+(en?'Arabic + English':'عربی + انگریزی')+'</b><small>'+(en?'English translation':'انگریزی ترجمہ')+'</small></button><button class="tile" onclick="audioQuranPage()"><div class="ico">🎧</div><b>'+(en?'Audio Quran':'آڈیو قرآن')+'</b><small>'+(en?'Arabic recitation by Surah':'سورت وار عربی تلاوت')+'</small></button></div><div id="surahbrowser"></div></section>'; }
 async function openQuranMode(mode){quranMode=mode;let en=language==='en';let box=document.getElementById('surahbrowser');if(!box)return;box.innerHTML='<input class="field" id="surahsearch" placeholder="'+(en?'Search Surah':'سورت تلاش کریں')+'"><div id="surahlist" class="muted">'+(en?'Loading…':'فہرست لوڈ ہو رہی ہے…')+'</div>';try{await loadSurahs();drawSurahs();document.getElementById('surahsearch').oninput=drawSurahs}catch(e){document.getElementById('surahlist').textContent=en?'Could not load Surahs. Check internet.':'سورتوں کی فہرست لوڈ نہیں ہو سکی۔'}} 
 function drawSurahs(){let q=(document.getElementById('surahsearch')?.value||'').toLowerCase();let box=document.getElementById('surahlist');if(!box)return;box.innerHTML=surahs.filter(s=>(s.number+' '+s.name+' '+s.englishName).toLowerCase().includes(q)).map(s=>'<div class="listitem" onclick="readSurah('+s.number+')"><b>'+s.number+'. '+s.name+'</b><div class="meta">'+s.englishName+' • '+s.numberOfAyahs+' آیات • '+(s.revelationType==='Meccan'?'مکی':'مدنی')+'</div></div>').join('')}
-async function readSurah(n){let mode=quranMode;app.innerHTML='<section class="section"><button class="btn back" onclick="quranPage()">← قرآن کے اختیارات</button><div class="center muted">آیات لوڈ ہو رہی ہیں…</div></section>';try{let editions=mode==='urdu'?'quran-uthmani,ur.jalandhry':'quran-uthmani';let r=await fetch('https://api.alquran.cloud/v1/surah/'+n+'/editions/'+editions);let d=await r.json(),ar=d.data[0],ur=mode==='urdu'?d.data[1]:null;let bism=(n!==1&&n!==9)?'<div class="arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>':'';app.innerHTML='<section class="section"><button class="btn back" onclick="quranPage()">← قرآن کے اختیارات</button><div class="surahhead"><h2>'+ar.name+'</h2><div class="meta">'+ar.englishName+' • '+ar.numberOfAyahs+' آیات</div></div>'+bism+ar.ayahs.map((a,i)=>'<div class="ayah"><div class="arabic">'+a.text+' <span class="ayahnum">'+a.numberInSurah+'</span></div>'+(ur?'<div class="translation">'+ur.ayahs[i].text+'</div>':'')+'</div>').join('')+'</section>'}catch(e){app.innerHTML='<section class="section">آیات لوڈ نہیں ہو سکیں۔ انٹرنیٹ چیک کریں۔</section>'}}
+async function readSurah(n){let mode=quranMode;app.innerHTML='<section class="section"><button class="btn back" onclick="quranPage()">← قرآن کے اختیارات</button><div class="center muted">آیات لوڈ ہو رہی ہیں…</div></section>';try{let edition=mode==='urdu'?'ur.jalandhry':mode==='english'?'en.sahih':null;let url='https://api.alquran.cloud/v1/surah/'+n+(edition?'/editions/quran-uthmani,'+edition:'/editions/quran-uthmani');let r=await fetch(url);let d=await r.json(),ar=d.data[0],tr=edition?d.data[1]:null;let bism=(n!==1&&n!==9)?'<div class="arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>':'';app.innerHTML='<section class="section"><button class="btn back" onclick="quranPage()">← قرآن کے اختیارات</button><div class="surahhead"><h2>'+ar.name+'</h2><div class="meta">'+ar.englishName+' • '+ar.numberOfAyahs+' آیات</div></div>'+bism+ar.ayahs.map((a,i)=>'<div class="ayah"><div class="arabic">'+a.text+' <span class="ayahnum">'+a.numberInSurah+'</span></div>'+(tr?'<div class="translation">'+tr.ayahs[i].text+'</div>':'')+'</div>').join('')+'</section>'}catch(e){app.innerHTML='<section class="section">آیات لوڈ نہیں ہو سکیں۔ انٹرنیٹ چیک کریں۔</section>'}}
 async function audioQuranPage(){let en=language==='en';if(quranAudio){quranAudio.pause();quranAudio=null}app.innerHTML='<section class="section"><button class="btn back" onclick="quranPage()">← قرآن کے اختیارات</button><h2>'+(en?'Audio Quran':'آڈیو قرآن')+'</h2><p class="muted">'+(en?'Mishary Rashid Alafasy • Surah-by-Surah recitation':'قاری مشاری راشد العفاسی • سورت وار تلاوت')+'</p><input class="field" id="audioSearch" placeholder="'+(en?'Search Surah':'سورت تلاش کریں')+'"><div id="audioSurahList" class="muted">فہرست لوڈ ہو رہی ہے…</div><div id="audioPlayer" class="section hidden"><h3 id="audioTitle" class="center"></h3><p id="audioStatus" class="center muted"></p><audio id="quranAudioElement" controls preload="none" style="width:100%"></audio><div class="row" style="justify-content:center;margin-top:12px"><button class="btn" onclick="audioPrev()">⏮ پچھلی سورت</button><button class="btn" onclick="audioNext()">اگلی سورت ⏭</button></div><p class="meta center">تلاوت کے لیے انٹرنیٹ درکار ہے۔</p></div></section>';try{await loadSurahs();drawAudioSurahs();document.getElementById('audioSearch').oninput=drawAudioSurahs}catch(e){document.getElementById('audioSurahList').textContent='فہرست لوڈ نہیں ہو سکی۔'}}
 function drawAudioSurahs(){let q=(document.getElementById('audioSearch')?.value||'').toLowerCase();let box=document.getElementById('audioSurahList');if(!box)return;box.innerHTML=surahs.filter(s=>(s.number+' '+s.name+' '+s.englishName).toLowerCase().includes(q)).map(s=>'<div class="listitem" onclick="playAudioSurah('+s.number+')"><b>'+s.number+'. '+s.name+'</b><div class="meta">'+s.englishName+' • '+s.numberOfAyahs+' آیات</div></div>').join('')}
 function audioUrl(s){return 'https://server8.mp3quran.net/afs/'+String(s).padStart(3,'0')+'.mp3'}
