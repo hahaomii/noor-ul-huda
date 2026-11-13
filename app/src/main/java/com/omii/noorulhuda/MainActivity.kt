@@ -1,6 +1,12 @@
 package com.omii.noorulhuda
 
 import android.app.Activity
+import android.app.DownloadManager
+import android.net.Uri
+import android.os.Environment
+import android.webkit.CookieManager
+import android.webkit.URLUtil
+import android.widget.Toast
 import android.webkit.JavascriptInterface
 import android.content.Intent
 import android.app.AlarmManager
@@ -48,6 +54,24 @@ class MainActivity : Activity() {
                         401
                     )
                 }
+            }
+        }
+        webView.setDownloadListener { url, userAgent, contentDisposition, mimeType, _ ->
+            try {
+                val request = DownloadManager.Request(Uri.parse(url))
+                request.setMimeType(mimeType)
+                request.addRequestHeader("User-Agent", userAgent)
+                CookieManager.getInstance().getCookie(url)?.let { request.addRequestHeader("Cookie", it) }
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                request.setDestinationInExternalPublicDir(
+                    Environment.DIRECTORY_DOWNLOADS,
+                    URLUtil.guessFileName(url, contentDisposition, mimeType)
+                )
+                val manager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+                manager.enqueue(request)
+                Toast.makeText(this, "Photo download started", Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                Toast.makeText(this, "Could not download photo", Toast.LENGTH_SHORT).show()
             }
         }
         webView.addJavascriptInterface(PrayerBridge(), "PrayerBridge")
