@@ -30,6 +30,18 @@ body{background:linear-gradient(160deg,#071b15 0%,#0b241b 48%,#06140f 100%);font
 .history-item p{line-height:1.85;margin:8px 0 0;color:#f1eadb}
 .history-item .meta{margin-top:8px}
 @media(min-width:600px){.modern-places .place-card{height:210px}.wrap{padding-top:22px}}
+
+.gallery-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.gallery-tabs .btn{flex:1;min-width:85px}
+.gallery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.gallery-card{background:#163629;border:1px solid #d9b66c44;border-radius:15px;overflow:hidden}
+.gallery-card img{width:100%;height:145px;object-fit:cover;display:block;cursor:pointer}
+.gallery-caption{padding:8px;font-size:12px;color:#eee2c5;direction:ltr;text-align:left;word-break:break-word}
+.photo-modal{position:fixed;inset:0;background:#000e;z-index:20;display:flex;align-items:center;justify-content:center;padding:14px}
+.photo-modal-inner{width:100%;max-width:650px;max-height:92vh;overflow:auto;background:#102a21;border:1px solid var(--gold);border-radius:18px;padding:12px;text-align:center}
+.photo-modal-inner img{width:100%;max-height:65vh;object-fit:contain;border-radius:10px;margin-top:10px}
+.download-link{display:inline-block;text-decoration:none;margin:8px;padding:12px 16px}
+@media(min-width:600px){.gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.gallery-card img{height:180px}}
 </style></head><body>
 <div id="splash" class="splash"><div class="mark">۞</div><h1>نور الہدیٰ</h1><p>قرآن • حدیث • دعائیں</p></div>
 <header class="top"><div class="brand">نور الہدیٰ</div><small>NOOR UL HUDA</small></header><main id="app" class="wrap"></main>
@@ -104,7 +116,7 @@ function openGalleryPhoto(url){let old=document.getElementById('photoViewer');if
 function closePhotoViewer(){let x=document.getElementById('photoViewer');if(x)x.remove()}
 function weatherPage(){let en=language==='en';app.innerHTML='<section class="section"><h2>'+(en?'Weather':'موسم')+'</h2><p class="muted">'+(en?'Enter a city. No location access needed.':'شہر کا نام درج کریں، لوکیشن کی اجازت درکار نہیں۔')+'</p><input class="field" id="weatherCity" value="Jeddah"><button class="btn primary" onclick="loadWeather()">'+(en?'Show weather':'موسم معلوم کریں')+'</button><div id="weatherResult" class="translation"></div></section>';loadWeather()}
 async function loadWeather(){let c=document.getElementById('weatherCity')?.value||'Jeddah',b=document.getElementById('weatherResult');if(!b)return;b.textContent='Loading…';try{let g=await fetch('https://geocoding-api.open-meteo.com/v1/search?name='+encodeURIComponent(c)+'&count=1&format=json'),p=(await g.json()).results?.[0];if(!p)throw Error();let w=await fetch('https://api.open-meteo.com/v1/forecast?latitude='+p.latitude+'&longitude='+p.longitude+'&current=temperature_2m,apparent_temperature,relative_humidity_2m&timezone=auto'),d=(await w.json()).current;b.innerHTML='<h2>'+p.name+'</h2><div class="counter">'+Math.round(d.temperature_2m)+'°C</div><p>Feels like '+Math.round(d.apparent_temperature)+'°C • Humidity '+d.relative_humidity_2m+'%</p>'}catch(e){b.textContent='Weather unavailable. Check city and internet.'}}
-function azanPage(){let en=language==='en';app.innerHTML='<section class="section"><h2>'+(en?'Azan notification tone':'اذان نوٹیفکیشن ٹون')+'</h2><p class="muted">'+(en?'Choose your city. No location permission needed.':'شہر منتخب کریں۔ لوکیشن اجازت کی ضرورت نہیں۔')+'</p><input class="field" id="city" value="Jeddah"><button class="btn primary" onclick="togglePrayerAlerts()">'+(localStorage.getItem('noorPrayerAlerts')==='on'?'Turn alerts off':'Turn alerts on')+'</button><p class="meta">'+(localStorage.getItem('noorPrayerAlerts')==='on'?'Alerts enabled':'Alerts off')+'</p></section>'}
+function azanPage(){let en=language==='en';app.innerHTML='<section class="section"><h2>'+(en?'Prayer Times & Azan':'نماز کے اوقات اور اذان')+'</h2><p class="muted">'+(en?'Choose your city. Location permission is not needed.':'اپنا شہر منتخب کریں۔ لوکیشن کی اجازت درکار نہیں۔')+'</p><input class="field" id="city" value="Jeddah" placeholder="'+(en?'City name':'شہر کا نام')+'"><button class="btn" onclick="prayerTimes()">'+(en?'Show prayer times':'نماز کے اوقات معلوم کریں')+'</button><div id="prayers" class="translation" style="margin-top:12px"></div></section><section class="section"><h2>'+(en?'Prayer notification tone':'اذان نوٹیفکیشن ٹون')+'</h2><p class="muted">'+(en?'A gentle notification tone at Fajr, Dhuhr, Asr, Maghrib and Isha. This is not full Adhan audio.':'فجر، ظہر، عصر، مغرب اور عشاء کے وقت ہلکی نوٹیفکیشن ٹون آئے گی، پوری اذان آڈیو نہیں۔')+'</p><button class="btn primary" onclick="togglePrayerAlerts()">'+(localStorage.getItem('noorPrayerAlerts')==='on'?(en?'Turn alerts off':'نوٹیفکیشن بند کریں'):(en?'Turn alerts on':'نوٹیفکیشن آن کریں'))+'</button><p class="meta">'+(localStorage.getItem('noorPrayerAlerts')==='on'?(en?'Alerts are enabled':'نوٹیفکیشن آن ہیں'):(en?'Alerts are off':'نوٹیفکیشن بند ہیں'))+'</p></section>';prayerTimes()}
 
 function saveName(){let n=document.getElementById('username').value.trim();if(n){localStorage.setItem('noorName',n);document.getElementById('greet').textContent='خوش آمدید، '+n}}
 let quranMode='arabic',audioSurah=1,audioAyah=1,audioTotal=7,quranAudio=null;
