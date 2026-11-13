@@ -1,6 +1,13 @@
 package com.omii.noorulhuda
 
 import android.app.Activity
+import android.webkit.JavascriptInterface
+import android.content.Intent
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.os.Build
+import org.json.JSONArray
+import java.util.Calendar
 import android.Manifest
 import android.content.pm.PackageManager
 import android.webkit.GeolocationPermissions
@@ -43,12 +50,34 @@ class MainActivity : Activity() {
                 }
             }
         }
+        webView.addJavascriptInterface(PrayerBridge(), "PrayerBridge")
         setContentView(webView)
         webView.loadUrl("file:///android_asset/index.html")
     }
 
+    inner class PrayerBridge {
+        @JavascriptInterface fun schedulePrayerNotifications(json: String) {
+            getSharedPreferences("prayer_alerts", MODE_PRIVATE).edit().putString("times", json).putBoolean("enabled", true).apply()
+            runOnUiThread {
+                if (Build.VERSION.SDK_INT >= 33 && checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 402)
+                } else PrayerAlarmReceiver.scheduleAll(this@MainActivity, json)
+            }
+        }
+        @JavascriptInterface fun cancelPrayerNotifications() {
+            getSharedPreferences("prayer_alerts", MODE_PRIVATE).edit().putBoolean("enabled", false).apply()
+            PrayerAlarmReceiver.cancelAll(this@MainActivity)
+        }
+    }
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 402) {
+            if (grantResults.any { it == PackageManager.PERMISSION_GRANTED }) {
+                val prefs = getSharedPreferences("prayer_alerts", MODE_PRIVATE)
+                if (prefs.getBoolean("enabled", false)) PrayerAlarmReceiver.scheduleAll(this, prefs.getString("times", "[]") ?: "[]")
+            }
+        }
         if (requestCode == 401) {
             val granted = grantResults.any { it == PackageManager.PERMISSION_GRANTED }
             geoCallback?.invoke(geoOrigin, granted, false)
