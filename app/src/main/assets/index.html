@@ -125,8 +125,8 @@ if(en)return `
 </div>
 <div class="home-section-title">Quran Reading</div>
 <div class="home-quran-card"><div class="home-card-left"><span class="qicon">📖</span><div><h4>Quran Arabic Only</h4><p>Complete Arabic Mushaf</p></div></div><button onclick="openQuranMode('arabic')">Open</button></div>
-<div class="home-quran-card"><div class="home-card-left"><span class="qicon">🇵🇰</span><div><h4>Arabic + Urdu</h4><p>Urdu translation by ayah</p></div></div><button onclick="openQuranMode('urdu');go('quran')">Open</button></div>
-<div class="home-quran-card"><div class="home-card-left"><span class="qicon">🇬🇧</span><div><h4>Arabic + English</h4><p>English translation by ayah</p></div></div><button onclick="openQuranMode('english');go('quran')">Open</button></div>
+<div class="home-quran-card"><div class="home-card-left"><span class="qicon">🇵🇰</span><div><h4>Arabic + Urdu</h4><p>Urdu translation by ayah</p></div></div><button onclick="go('quran');openQuranMode('urdu')">Open</button></div>
+<div class="home-quran-card"><div class="home-card-left"><span class="qicon">🇬🇧</span><div><h4>Arabic + English</h4><p>English translation by ayah</p></div></div><button onclick="go('quran');openQuranMode('english')">Open</button></div>
 <div class="home-section-title">Audio Quran</div>
 <div class="home-quran-card"><div class="home-card-left"><span class="qicon">🎧</span><div><h4>Arabic Recitation</h4><p>Listen to complete Surahs online</p></div></div><button onclick="audioQuranPage()">Play</button></div>
 <section class="section" style="margin-top:16px"><h2>Today's Reminder</h2><div id="reminderContent"></div><button class="btn primary" onclick="refreshReminder()">↻ Refresh reminder</button></section>`;
