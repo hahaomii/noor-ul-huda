@@ -235,56 +235,9 @@ async function loadWeather(){let c=document.getElementById('weatherCity')?.value
 function azanPage(){let en=language==='en';app.innerHTML='<section class="section"><h2>'+(en?'Prayer Times & Azan':'نماز کے اوقات اور اذان')+'</h2><p class="muted">'+(en?'Choose your city. Location permission is not needed.':'اپنا شہر منتخب کریں۔ لوکیشن کی اجازت درکار نہیں۔')+'</p><input class="field" id="city" value="Jeddah" placeholder="'+(en?'City name':'شہر کا نام')+'"><button class="btn" onclick="prayerTimes()">'+(en?'Show prayer times':'نماز کے اوقات معلوم کریں')+'</button><div id="prayers" class="translation" style="margin-top:12px"></div></section><section class="section"><h2>'+(en?'Prayer notification tone':'اذان نوٹیفکیشن ٹون')+'</h2><p class="muted">'+(en?'A gentle notification tone at Fajr, Dhuhr, Asr, Maghrib and Isha. This is not full Adhan audio.':'فجر، ظہر، عصر، مغرب اور عشاء کے وقت ہلکی نوٹیفکیشن ٹون آئے گی، پوری اذان آڈیو نہیں۔')+'</p><button class="btn primary" onclick="togglePrayerAlerts()">'+(localStorage.getItem('noorPrayerAlerts')==='on'?(en?'Turn alerts off':'نوٹیفکیشن بند کریں'):(en?'Turn alerts on':'نوٹیفکیشن آن کریں'))+'</button><p class="meta">'+(localStorage.getItem('noorPrayerAlerts')==='on'?(en?'Alerts are enabled':'نوٹیفکیشن آن ہیں'):(en?'Alerts are off':'نوٹیفکیشن بند ہیں'))+'</p></section>';prayerTimes()}
 
 function saveName(){let n=document.getElementById('username').value.trim();if(n){localStorage.setItem('noorName',n);document.getElementById('greet').textContent='خوش آمدید، '+n}}
-let quranMode='arabic',audioSurah=1,audioAyah=1,audioTotal=7,quranAudio=null;
+let audioSurah=1,quranAudio=null;
 async function loadSurahs(){if(surahs.length)return surahs;let r=await fetch('https://api.alquran.cloud/v1/surah');let d=await r.json();surahs=d.data;return surahs}
 async function quranPage(){ await audioQuranPage(); }
-async function openQuranMode(mode){quranMode=mode;let en=language==='en';let box=document.getElementById('surahbrowser');if(!box)return;box.innerHTML='<input class="field" id="surahsearch" placeholder="'+(en?'Search Surah':'سورت تلاش کریں')+'"><div id="surahlist" class="muted">'+(en?'Loading…':'فہرست لوڈ ہو رہی ہے…')+'</div>';try{await loadSurahs();drawSurahs();document.getElementById('surahsearch').oninput=drawSurahs}catch(e){document.getElementById('surahlist').textContent=en?'Could not load Surahs. Check internet.':'سورتوں کی فہرست لوڈ نہیں ہو سکی۔'}} 
-function drawSurahs(){let q=(document.getElementById('surahsearch')?.value||'').toLowerCase();let box=document.getElementById('surahlist');if(!box)return;box.innerHTML=surahs.filter(s=>(s.number+' '+s.name+' '+s.englishName).toLowerCase().includes(q)).map(s=>'<div class="listitem" onclick="readSurah('+s.number+')"><b>'+s.number+'. '+s.name+'</b><div class="meta">'+s.englishName+' • '+s.numberOfAyahs+' آیات • '+(s.revelationType==='Meccan'?'مکی':'مدنی')+'</div></div>').join('')}
-async function readSurah(n){if(quranMode==='arabic'){await readMushafSurah(n);return}let mode=quranMode;app.innerHTML='<section class="section"><button class="btn back" onclick="quranPage()">← قرآن کے اختیارات</button><div class="center muted">آیات لوڈ ہو رہی ہیں…</div></section>';try{let edition=mode==='urdu'?'ur.jalandhry':mode==='english'?'en.sahih':null;let url='https://api.alquran.cloud/v1/surah/'+n+(edition?'/editions/quran-uthmani,'+edition:'/editions/quran-uthmani');let r=await fetch(url);let d=await r.json(),ar=d.data[0],tr=edition?d.data[1]:null;let bism=(n!==1&&n!==9)?'<div class="arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>':'';app.innerHTML='<section class="section"><button class="btn back" onclick="quranPage()">← قرآن کے اختیارات</button><div class="surahhead"><h2>'+ar.name+'</h2><div class="meta">'+ar.englishName+' • '+ar.numberOfAyahs+' آیات</div></div>'+bism+ar.ayahs.map((a,i)=>'<div class="ayah"><div class="arabic">'+a.text+' <span class="ayahnum">'+a.numberInSurah+'</span></div>'+(tr?'<div class="translation">'+tr.ayahs[i].text+'</div>':'')+'</div>').join('')+'</section>'}catch(e){app.innerHTML='<section class="section">آیات لوڈ نہیں ہو سکیں۔ انٹرنیٹ چیک کریں۔</section>'}}
-
-let mushafPage=1,mushafFontSize=25,mushafCurrentSurah=1;
-async function readMushafSurah(n){
-  mushafCurrentSurah=n;
-  app.innerHTML='<section class="mushaf-shell"><div class="mushaf-toolbar"><button class="btn" onclick="quranPage()">← فہرست</button><span class="mushaf-label">قرآن مجید • کتابی مطالعہ</span><button class="btn" onclick="changeMushafZoom(2)">A+</button><button class="btn" onclick="changeMushafZoom(-2)">A−</button></div><div id="mushafLoading" class="mushaf-loading">قرآنِ کریم لوڈ ہو رہا ہے…</div><div id="mushafBook" class="mushaf-page hidden"></div><div class="mushaf-pagination"><button class="btn" onclick="moveMushafPage(-1)">صفحہ سابق</button><label id="mushafPageLabel">صفحہ 1 / 604</label><button class="btn" onclick="moveMushafPage(1)">اگلا صفحہ</button></div><div class="mushaf-jump"><input id="mushafJumpInput" type="number" min="1" max="604" class="field" placeholder="صفحہ نمبر 1–604"><button class="btn primary" onclick="jumpMushafPage()">جائیں</button></div><p class="mushaf-credit">عربی متن: Quran Uthmani • صفحہ بندی: مدینہ مصحف</p></section>';
-  try{
-    const sr=await fetch('https://api.alquran.cloud/v1/surah/'+n);
-    const sd=await sr.json();
-    if(sd.code!==200||!sd.data?.ayahs?.length)throw Error('surah');
-    mushafPage=sd.data.ayahs[0].page||1;
-    await loadMushafPage(mushafPage);
-  }catch(e){
-    const l=document.getElementById('mushafLoading');
-    if(l)l.textContent='قرآن لوڈ نہیں ہو سکا۔ انٹرنیٹ چیک کرکے دوبارہ کوشش کریں۔';
-  }
-}
-async function loadMushafPage(page){
-  page=Math.max(1,Math.min(604,Number(page)||1));mushafPage=page;
-  const book=document.getElementById('mushafBook'),loading=document.getElementById('mushafLoading');
-  if(book)book.classList.add('hidden');if(loading){loading.classList.remove('hidden');loading.textContent='صفحہ '+page+' لوڈ ہو رہا ہے…'}
-  try{
-    const r=await fetch('https://api.alquran.cloud/v1/page/'+page+'/quran-uthmani');
-    const j=await r.json();if(j.code!==200||!j.data?.ayahs?.length)throw Error('page');
-    const ayahs=j.data.ayahs;let html='';
-    ayahs.forEach((a,i)=>{
-      if(i===0||a.numberInSurah===1){
-        html+='<div class="mushaf-surah-name">'+a.surah.name+'</div>';
-        if(a.numberInSurah===1&&a.surah.number!==1&&a.surah.number!==9)html+='<div class="mushaf-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>';
-      }
-      html+='<span class="mushaf-verse">'+a.text+' <span class="mushaf-ayah-mark">۞'+a.numberInSurah+'۞</span> </span>';
-    });
-    if(book){book.innerHTML='<div class="mushaf-inner" style="--mushaf-font:'+mushafFontSize+'px">'+html+'</div>';book.classList.remove('hidden')}
-    if(loading)loading.classList.add('hidden');
-    const label=document.getElementById('mushafPageLabel');if(label)label.textContent='صفحہ '+page+' / 604';
-    const input=document.getElementById('mushafJumpInput');if(input)input.value=page;
-    const prev=document.querySelector('.mushaf-pagination button:first-child'),next=document.querySelector('.mushaf-pagination button:last-child');
-    if(prev)prev.disabled=page===1;if(next)next.disabled=page===604;
-  }catch(e){if(loading){loading.classList.remove('hidden');loading.textContent='یہ صفحہ لوڈ نہیں ہو سکا۔ دوبارہ کوشش کریں۔'}}
-}
-function moveMushafPage(step){loadMushafPage(mushafPage+step)}
-function jumpMushafPage(){const v=Number(document.getElementById('mushafJumpInput')?.value);if(Number.isInteger(v)&&v>=1&&v<=604)loadMushafPage(v);else alert('صفحہ نمبر 1 سے 604 کے درمیان درج کریں۔')}
-function changeMushafZoom(delta){mushafFontSize=Math.max(18,Math.min(40,mushafFontSize+delta));const inner=document.querySelector('.mushaf-inner');if(inner)inner.style.setProperty('--mushaf-font',mushafFontSize+'px')}
-
-
 let audioPlayerReady=false;
 let audioDbPromise=null;
 function openAudioDb(){if(audioDbPromise)return audioDbPromise;audioDbPromise=new Promise((resolve,reject)=>{const req=indexedDB.open('NoorHudaAudio',1);req.onupgradeneeded=()=>req.result.createObjectStore('surahs');req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)});return audioDbPromise}
