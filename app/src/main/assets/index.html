@@ -301,7 +301,7 @@ function jumpMushafPage(){const v=Number(document.getElementById('mushafJumpInpu
 function changeMushafZoom(delta){mushafFontSize=Math.max(18,Math.min(40,mushafFontSize+delta));const inner=document.querySelector('.mushaf-inner');if(inner)inner.style.setProperty('--mushaf-font',mushafFontSize+'px')}
 
 
-let audioSurah=1,audioAyah=1,audioTotal=7,quranAudio=null,audioPlayerReady=false;
+let audioPlayerReady=false;
 let audioDbPromise=null;
 function openAudioDb(){if(audioDbPromise)return audioDbPromise;audioDbPromise=new Promise((resolve,reject)=>{const req=indexedDB.open('NoorHudaAudio',1);req.onupgradeneeded=()=>req.result.createObjectStore('surahs');req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)});return audioDbPromise}
 async function getOfflineSurah(n){try{const db=await openAudioDb();return await new Promise((resolve,reject)=>{const r=db.transaction('surahs').objectStore('surahs').get(n);r.onsuccess=()=>resolve(r.result||null);r.onerror=()=>reject(r.error)})}catch(e){return null}}
