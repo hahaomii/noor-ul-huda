@@ -22,9 +22,12 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.view.View
 import android.graphics.Color
+import android.speech.tts.TextToSpeech
+import java.util.Locale
 
 class MainActivity : Activity() {
     private lateinit var webView: WebView
+    private var kidTts: TextToSpeech? = null
 
     @Suppress("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,8 +60,21 @@ class MainActivity : Activity() {
             }
         }
         webView.addJavascriptInterface(PrayerBridge(), "PrayerBridge")
+        kidTts = TextToSpeech(this) { status ->
+            if (status == TextToSpeech.SUCCESS) kidTts?.language = Locale("ar", "SA")
+        }
+        webView.addJavascriptInterface(KidVoiceBridge(), "KidVoiceBridge")
         setContentView(webView)
         webView.loadUrl("file:///android_asset/index.html")
+    }
+
+    inner class KidVoiceBridge {
+        @JavascriptInterface fun speakArabic(text: String) {
+            runOnUiThread { kidTts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "kid_phrase") }
+        }
+        @JavascriptInterface fun stop() {
+            runOnUiThread { kidTts?.stop() }
+        }
     }
 
     inner class PrayerBridge {
@@ -84,6 +100,12 @@ class MainActivity : Activity() {
                 if (prefs.getBoolean("enabled", false)) PrayerAlarmReceiver.scheduleAll(this, prefs.getString("times", "[]") ?: "[]")
             }
         }
+    }
+
+    override fun onDestroy() {
+        kidTts?.stop()
+        kidTts?.shutdown()
+        super.onDestroy()
     }
 
     @Deprecated("Deprecated in Android")
