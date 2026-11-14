@@ -4,6 +4,7 @@
 <style>
 :root{--bg:#071914;--panel:#102b23;--panel2:#17392e;--gold:#d9b66c;--cream:#f5efdf;--muted:#b9c5b8;--line:#345448;--green:#244d3e}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#163b2d 0,#071914 58%);color:var(--cream);font-family:Arial,sans-serif;min-height:100vh}button,input{font:inherit}button{cursor:pointer}.splash{position:fixed;inset:0;z-index:10;background:radial-gradient(circle at 50% 35%,#245640,#061710 72%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transition:opacity .5s}.splash .mark{width:112px;height:112px;border:1px solid var(--gold);border-radius:50%;display:grid;place-items:center;font-size:54px;color:var(--gold);box-shadow:0 0 45px #d9b66c22}.splash h1{font-size:34px;color:var(--gold);margin:20px 0 4px}.splash p{color:#d8d2bd;margin:0}.top{padding:24px 20px 18px;text-align:center;border-bottom:1px solid #d9b66c30;background:linear-gradient(180deg,#153b2d99,transparent)}.top .brand{font-size:29px;color:var(--gold);font-weight:bold}.top small{display:block;color:var(--muted);font-family:Arial,sans-serif;letter-spacing:2px;margin-top:4px}.wrap{max-width:760px;margin:auto;padding:14px 14px 100px}.hero{border:1px solid #b9914b66;border-radius:22px;padding:22px;background:linear-gradient(135deg,#1a4937,#0d281f 75%);text-align:center;box-shadow:0 14px 36px #0003}.hero .bism{font-size:27px;color:#f0d99e;line-height:2}.hero p{margin:8px 0 0;color:#d9d6c8}.date{font:12px Arial;color:#c8b98e;margin-top:12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:15px}.tile{background:linear-gradient(145deg,#173b2f,#0e261f);border:1px solid var(--line);border-radius:17px;padding:17px 12px;text-align:center;color:var(--cream);min-height:112px}.tile .ico{font-size:26px;color:var(--gold)}.tile b{display:block;font-size:17px;margin-top:7px}.tile small{color:var(--muted)}.section{background:#0f2a22;border:1px solid var(--line);border-radius:18px;padding:17px;margin-top:14px}.section h2{margin:0 0 12px;color:var(--gold);font-size:22px}.row{display:flex;gap:8px;align-items:center}.row>*{min-width:0}.field{width:100%;background:#f4efdf;color:#14271e;border:0;border-radius:11px;padding:12px;margin:5px 0}.btn{border:1px solid #c5a25d;background:#234b3a;color:#fff2d6;border-radius:12px;padding:11px 15px}.btn.primary{background:var(--gold);color:#14271e;font-weight:bold}.btn.ghost{background:transparent}.listitem{padding:14px 4px;border-bottom:1px solid var(--line);cursor:pointer}.listitem:last-child{border:0}.listitem b{color:#f0d99e}.muted{color:var(--muted)}.arabic{font-family:serif;font-size:27px;line-height:2.05;text-align:center;color:#f4dfaa;direction:rtl}.translation{font-size:18px;line-height:1.9;color:#e5e1d4}.meta{font:12px Arial;color:#b7c4b8;margin-top:7px}.bottom{position:fixed;bottom:0;left:0;right:0;background:#091e18f5;border-top:1px solid #456052;display:flex;justify-content:space-around;padding:9px 3px calc(9px + env(safe-area-inset-bottom));z-index:4}.bottom button{background:none;border:0;color:#d4c9a9;font-size:12px;display:flex;flex-direction:column;align-items:center;gap:3px}.bottom span{font-size:20px}.bottom button.active{color:var(--gold)}.back{margin-bottom:10px}.counter{font-size:68px;text-align:center;color:var(--gold);padding:20px}.counterbtn{width:160px;height:160px;border-radius:50%;font-size:25px;border:5px solid #d9b66c;background:linear-gradient(145deg,#285a43,#10291f);color:#f5e7c5;display:block;margin:0 auto}.center{text-align:center}.surahhead{text-align:center;color:var(--gold);padding:14px}.ayah{padding:16px 6px;border-bottom:1px solid var(--line)}.ayahnum{display:inline-grid;place-items:center;border:1px solid #c4a15c;border-radius:50%;width:27px;height:27px;color:var(--gold);font:12px Arial}.pill{display:inline-block;border:1px solid var(--line);border-radius:20px;padding:6px 11px;color:#dfc98f;margin:3px;font-size:13px}.hidden{display:none!important}.sitefooter{text-align:center;padding:18px 10px 105px;color:#d9b66c;border-top:1px solid #d9b66c44;font-size:17px;line-height:1.9}.sitefooter .latin{font:10px Arial;letter-spacing:1px;color:#b9c5b8;margin-top:3px}.langcard{margin:18px 0;padding:22px;border:1px solid var(--gold);border-radius:20px;background:#102b23;text-align:center}.langcard button{width:100%;margin:8px 0;padding:18px;font-size:19px}
 
+.hadith-card{margin:16px 0 20px;padding:20px 22px;border:1px solid #385b4b;border-radius:22px;background:#17392d;box-shadow:0 5px 18px #0002}.hadith-card-head{color:#e4c27a;text-align:right;font-weight:700;font-size:17px;margin-bottom:14px}.hadith-card-head span{display:block;color:#bdcbbf;font-size:12px;font-weight:400;margin-top:4px}.hadith-arabic{color:#fff8e9;text-align:right;font-family:serif;font-size:25px;line-height:2.05;padding:8px 0 14px}.hadith-translation-toggle{display:block;margin:5px 0 0 auto;border:1px solid #c7a65d;border-radius:18px;background:#244b39;color:#f5dda0;padding:8px 15px;font-size:14px}.hadith-translation{margin-top:12px;padding:15px 16px;border:1px solid #496b57;border-radius:14px;background:#102a21;color:#fff2d8;text-align:right;font-size:17px;line-height:1.9}.field{width:100%;margin:6px 0 12px;padding:12px;border-radius:12px;background:#17392d;color:#fff8e9;border:1px solid #58735f}.kidgame-actions button:disabled{opacity:.35}
 /* Noor Ul Huda modern refresh */
 :root{--bg:#061711;--panel:#102a21;--panel2:#183c2e;--gold:#e4c27a;--cream:#fff8e9;--muted:#bdcbbf;--line:#385b4b}
 body{background:linear-gradient(160deg,#071b15 0%,#0b241b 48%,#06140f 100%);font-family:system-ui,Arial,sans-serif}
@@ -409,21 +410,88 @@ function stopQuranAudio(){if(quranAudio){quranAudio.pause();quranAudio.removeAtt
 async function downloadCurrentSurah(){if(!audioSurah)return;const b=document.getElementById('persistentDownload'),status=document.getElementById('persistentAudioStatus');b.textContent='…';status.textContent='Downloading Surah for offline listening…';try{const cached=await getOfflineSurah(audioSurah);if(cached){status.textContent='Already downloaded • Offline ready';b.textContent='✓';return}const r=await fetch(audioUrl(audioSurah));if(!r.ok)throw Error('download');const blob=await r.blob();await saveOfflineSurah(audioSurah,blob);if(quranAudio.src.startsWith('blob:'))URL.revokeObjectURL(quranAudio.src);quranAudio.src=URL.createObjectURL(blob);quranAudio.load();status.textContent='Downloaded • This Surah is ready offline';b.textContent='✓'}catch(e){status.textContent='Download failed. Please connect to the internet and try again.';b.textContent='⬇'}}
 function audioNext(){if(audioSurah<114)playAudioSurah(audioSurah+1)}
 function audioPrev(){if(audioSurah>1)playAudioSurah(audioSurah-1)}
-const localHadiths=[
-{book:'bukhari',bookName:'صحیح بخاری',number:'1',arab:'إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى',urdu:'اعمال کا دار و مدار نیتوں پر ہے، اور ہر شخص کو وہی ملے گا جس کی اس نے نیت کی۔',english:'Actions are judged by intentions, and every person will have what they intended.',bookEn:'Sahih al-Bukhari'},
-{book:'bukhari',bookName:'صحیح بخاری',number:'10',arab:'الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ',urdu:'مسلمان وہ ہے جس کی زبان اور ہاتھ سے دوسرے مسلمان محفوظ رہیں۔',english:'A Muslim is the one from whose tongue and hand other Muslims are safe.',bookEn:'Sahih collection'},
-{book:'bukhari',bookName:'صحیح بخاری',number:'13',arab:'لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لِأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ',urdu:'تم میں سے کوئی شخص کامل مومن نہیں ہو سکتا جب تک اپنے بھائی کے لیے وہی پسند نہ کرے جو اپنے لیے پسند کرتا ہے۔',english:'None of you truly believes until he loves for his brother what he loves for himself.',bookEn:'Sahih collection'},
-{book:'bukhari',bookName:'صحیح بخاری',number:'6018',arab:'مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ',urdu:'جو اللہ اور آخرت کے دن پر ایمان رکھتا ہے، اسے چاہیے کہ اچھی بات کہے یا خاموش رہے۔',english:'Whoever believes in Allah and the Last Day should speak good or remain silent.',bookEn:'Sahih collection'},
-{book:'bukhari',bookName:'صحیح بخاری',number:'6412',arab:'نِعْمَتَانِ مَغْبُونٌ فِيهِمَا كَثِيرٌ مِنَ النَّاسِ: الصِّحَّةُ وَالْفَرَاغُ',urdu:'دو نعمتیں ایسی ہیں جن کے بارے میں بہت سے لوگ نقصان میں رہتے ہیں: صحت اور فراغت۔',english:'There are two blessings many people waste: health and free time.',bookEn:'Sahih collection'},
-{book:'bukhari',bookName:'صحیح بخاری',number:'6464',arab:'أَحَبُّ الْأَعْمَالِ إِلَى اللَّهِ أَدْوَمُهَا وَإِنْ قَلَّ',urdu:'اللہ کے نزدیک سب سے پسندیدہ عمل وہ ہے جو پابندی سے کیا جائے، اگرچہ تھوڑا ہو۔',english:'The most beloved deeds to Allah are those done regularly, even if few.',bookEn:'Sahih collection'},
-{book:'muslim',bookName:'صحیح مسلم',bookEn:'Sahih Muslim',number:'2699',arab:'مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ',urdu:'جو شخص علم حاصل کرنے کے لیے کسی راستے پر چلتا ہے، اللہ اس کے لیے جنت کا راستہ آسان فرما دیتا ہے۔',english:'Whoever follows a path seeking knowledge, Allah will make a path to Paradise easy for him.',bookEn:'Sahih collection'},
-{book:'muslim',bookName:'صحیح مسلم',bookEn:'Sahih Muslim',number:'2586',arab:'الْمُؤْمِنُ لِلْمُؤْمِنِ كَالْبُنْيَانِ يَشُدُّ بَعْضُهُ بَعْضًا',urdu:'ایک مومن دوسرے مومن کے لیے عمارت کی طرح ہے، جس کا ایک حصہ دوسرے حصے کو مضبوط کرتا ہے۔',english:'A believer to another believer is like a building, each part strengthening the other.',bookEn:'Sahih collection'},
-{book:'muslim',bookName:'صحیح مسلم',bookEn:'Sahih Muslim',number:'223',arab:'الطُّهُورُ شَطْرُ الْإِيمَانِ',urdu:'پاکیزگی نصف ایمان ہے۔',english:'Purification is half of faith.',bookEn:'Sahih collection'},
-{book:'muslim',bookName:'صحیح مسلم',bookEn:'Sahih Muslim',number:'2564',arab:'إِنَّ اللَّهَ لَا يَنْظُرُ إِلَى صُوَرِكُمْ وَأَمْوَالِكُمْ، وَلَكِنْ يَنْظُرُ إِلَى قُلُوبِكُمْ وَأَعْمَالِكُمْ',urdu:'اللہ تمہاری صورتوں اور مالوں کو نہیں دیکھتا، بلکہ تمہارے دلوں اور اعمال کو دیکھتا ہے۔',english:'Allah does not look at your appearance or wealth, but at your hearts and deeds.',bookEn:'Sahih collection'}
-];
-localHadiths.forEach(h=>{if(h.book==='muslim')h.bookEn='Sahih Muslim'});
-function hadithPageView(){let en=language==='en';app.innerHTML='<section class="section"><h2>'+(en?'Prophetic Hadith':'احادیثِ نبوی ﷺ')+'</h2><p class="muted">'+(en?'Selected narrations • Arabic • English translation • reference':'منتخب احادیث • عربی متن • اردو ترجمہ • حوالہ')+'</p><select class="field" id="book"><option value="all">تمام منتخب احادیث</option><option value="bukhari">صحیح بخاری</option><option value="muslim">صحیح مسلم</option></select><div id="hadithlist"></div><p class="meta">یہ منتخب احادیث ایپ میں محفوظ ہیں، ان کے لیے انٹرنیٹ یا بیرونی سرور کی ضرورت نہیں۔</p></section>';document.getElementById('book').onchange=drawHadith;drawHadith()}
-function drawHadith(){let book=document.getElementById('book')?.value||'all';let arr=localHadiths.filter(h=>book==='all'||h.book===book);document.getElementById('hadithlist').innerHTML=arr.map(h=>'<div class="ayah"><div class="arabic">'+h.arab+'</div><p class="translation">'+(language==='en'?h.english:h.urdu)+'</p><div class="meta">'+(language==='en'?h.bookEn+' • Hadith No: ':'حدیث نمبر: ')+h.number+'</div></div>').join('')}
+
+const hadithCollections={
+ bukhari:{title:'صحیح بخاری',ar:'ara-bukhari',ur:'urd-bukhari'},
+ tirmidhi:{title:'جامع ترمذی',ar:'ara-tirmidhi',ur:'urd-tirmidhi'}
+};
+const hadithCache={};
+let activeHadithBook='bukhari',activeHadithSection='1',hadithItems=[],hadithPageNo=0;
+async function getHadithJson(url){
+ let response=await fetch(url);
+ if(!response.ok) response=await fetch(url.replace('.min.json','.json'));
+ if(!response.ok) throw new Error('HTTP '+response.status);
+ return await response.json();
+}
+async function loadHadithBook(book){
+ if(hadithCache[book]) return hadithCache[book];
+ const c=hadithCollections[book];
+ const [ar,ur]=await Promise.all([
+  getHadithJson('https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/'+c.ar+'.min.json'),
+  getHadithJson('https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/'+c.ur+'.min.json')
+ ]);
+ const sections=(ar.metadata&&ar.metadata.sections)||{};
+ const result={ar,ur,sections,arabic:new Map(),urdu:new Map()};
+ (ar.hadiths||[]).forEach(h=>result.arabic.set(String(h.hadithnumber),h));
+ (ur.hadiths||[]).forEach(h=>result.urdu.set(String(h.hadithnumber),h));
+ hadithCache[book]=result;
+ return result;
+}
+function hadithEsc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function hadithPageView(){
+ const en=language==='en';
+ app.innerHTML='<section class="section"><h2>'+(en?'Hadith Library':'احادیثِ نبوی ﷺ')+'</h2><p class="muted">'+(en?'Complete Arabic and Urdu collections, arranged by source sections':'مکمل دستیاب عربی و اردو مجموعے، اصل کتاب اور باب کے مطابق')+'</p><label class="meta">'+(en?'Collection':'کتاب')+'</label><select class="field" id="hadithBook"><option value="bukhari">صحیح بخاری</option><option value="tirmidhi">جامع ترمذی</option></select><label class="meta">'+(en?'Book / Section':'کتاب / باب')+'</label><select class="field" id="hadithSection" disabled><option>لوڈ ہو رہا ہے…</option></select><div id="hadithStatus" class="meta">احادیث لوڈ ہو رہی ہیں…</div><div id="hadithlist"></div><div class="kidgame-actions"><button class="btn" id="hadithPrev">پچھلی احادیث</button><button class="btn primary" id="hadithNext">اگلی احادیث</button></div><p class="meta">نوٹ: یہ ڈیجیٹل ماخذ کے عربی اور اردو متن ہیں؛ مترجم کی شناخت اس ڈیٹا میں درج نہیں، اس لیے انہیں دارالسلام کا ترجمہ قرار نہیں دیا گیا۔ جلد نمبر گھڑنے کے بجائے اصل ماخذ کے ابواب دکھائے گئے ہیں۔ انٹرنیٹ درکار ہے۔</p></section>';
+ document.getElementById('hadithBook').value=activeHadithBook;
+ document.getElementById('hadithBook').onchange=async e=>{activeHadithBook=e.target.value;activeHadithSection='1';await populateHadithSections()};
+ document.getElementById('hadithSection').onchange=async e=>{activeHadithSection=e.target.value;hadithPageNo=0;await drawHadith()};
+ document.getElementById('hadithPrev').onclick=()=>{if(hadithPageNo>0){hadithPageNo--;renderHadithPage()}};
+ document.getElementById('hadithNext').onclick=()=>{if((hadithPageNo+1)*30<hadithItems.length){hadithPageNo++;renderHadithPage()}};
+ populateHadithSections();
+}
+async function populateHadithSections(){
+ const sel=document.getElementById('hadithSection'),status=document.getElementById('hadithStatus');
+ sel.disabled=true;sel.innerHTML='<option>لوڈ ہو رہا ہے…</option>';status.textContent='احادیث لوڈ ہو رہی ہیں…';
+ try{
+  const data=await loadHadithBook(activeHadithBook),entries=Object.entries(data.sections||{});
+  sel.innerHTML=entries.map(([id,name])=>'<option value="'+hadithEsc(id)+'">'+hadithEsc(name)+'</option>').join('');
+  if(!entries.length) sel.innerHTML='<option value="1">تمام ابواب</option>';
+  sel.value=activeHadithSection;sel.disabled=false;
+  await drawHadith();
+ }catch(err){status.textContent='ڈیٹا لوڈ نہیں ہو سکا۔ انٹرنیٹ چیک کرکے دوبارہ کوشش کریں۔';document.getElementById('hadithlist').innerHTML='<button class="btn primary" onclick="populateHadithSections()">دوبارہ کوشش کریں</button>'}
+}
+async function drawHadith(){
+ const status=document.getElementById('hadithStatus');status.textContent='منتخب باب کی احادیث لوڈ ہو رہی ہیں…';
+ try{
+  const data=await loadHadithBook(activeHadithBook),c=hadithCollections[activeHadithBook],section=activeHadithSection;
+  let arData,urData;
+  try{
+   [arData,urData]=await Promise.all([
+    getHadithJson('https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/'+c.ar+'/sections/'+section+'.min.json'),
+    getHadithJson('https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/'+c.ur+'/sections/'+section+'.min.json')
+   ]);
+  }catch(e){arData={hadiths:[...data.arabic.values()]};urData={hadiths:[...data.urdu.values()]}}
+  const ars=arData.hadiths||[],urs=new Map((urData.hadiths||[]).map(h=>[String(h.hadithnumber),h]));
+  hadithItems=ars.map(h=>({number:h.hadithnumber,arab:h.arab||h.text||'',urdu:(urs.get(String(h.hadithnumber))||{}).text||''})).filter(h=>h.arab);
+  if(!hadithItems.length){
+   const all=[...data.arabic.values()],secName=String((data.sections||{})[section]||'');
+   hadithItems=all.filter(h=>String(h.section||h.book||'')===String(section)||String(h.chapter||'')===secName).map(h=>({number:h.hadithnumber,arab:h.arab||h.text||'',urdu:(data.urdu.get(String(h.hadithnumber))||{}).text||''}));
+  }
+  hadithPageNo=0;renderHadithPage();
+ }catch(err){status.textContent='احادیث حاصل کرنے میں مسئلہ ہوا۔ دوبارہ کوشش کریں۔';document.getElementById('hadithlist').innerHTML='<button class="btn primary" onclick="drawHadith()">دوبارہ کوشش کریں</button>'}
+}
+function renderHadithPage(){
+ const list=document.getElementById('hadithlist'),status=document.getElementById('hadithStatus');
+ if(!list)return;
+ const sectionName=(hadithCache[activeHadithBook]?.sections||{})[activeHadithSection]||'';
+ const title=hadithCollections[activeHadithBook].title;
+ const from=hadithPageNo*30,to=Math.min(from+30,hadithItems.length),items=hadithItems.slice(from,to);
+ status.textContent=title+' • '+sectionName+' • '+(hadithItems.length||0)+' احادیث';
+ list.innerHTML=items.map((h,i)=>'<article class="hadith-card"><div class="hadith-card-head">'+hadithEsc(title)+' — '+(from+i+1)+' <span>حدیث نمبر '+hadithEsc(h.number)+'</span></div><div class="hadith-arabic" dir="rtl">'+hadithEsc(h.arab)+'</div><button class="hadith-translation-toggle" type="button" onclick="toggleHadithTranslation(this)">ترجمہ دیکھیں</button><div class="hadith-translation" hidden dir="rtl">'+(h.urdu?hadithEsc(h.urdu):'اس حدیث کا اردو ترجمہ اس ڈیٹا میں دستیاب نہیں۔')+'</div></article>').join('')||'<p class="meta">اس باب میں ڈیٹا دستیاب نہیں۔</p>';
+ document.getElementById('hadithPrev').disabled=hadithPageNo===0;
+ document.getElementById('hadithNext').disabled=to>=hadithItems.length;
+}
+function toggleHadithTranslation(button){const box=button.nextElementSibling;box.hidden=!box.hidden;button.textContent=box.hidden?'ترجمہ دیکھیں':'ترجمہ چھپائیں'}
+
 duas.forEach((d,i)=>d[4]=["In Your name, O Allah, I die and I live.","All praise is for Allah who gave us life after causing us to die, and to Him is the resurrection.","In the name of Allah.","All praise is for Allah who fed me this and provided it for me without any power or strength from me.","In the name of Allah; I place my trust in Allah. There is no might nor power except with Allah.","In the name of Allah we enter, and in the name of Allah we leave, and upon our Lord we rely.","O Allah, open for me the gates of Your mercy.","O Allah, I ask You for Your bounty.","My Lord, have mercy upon them as they raised me when I was small.","My Lord, increase me in knowledge.","Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.","Allah is sufficient for us, and He is the best disposer of affairs.","I seek forgiveness from Allah and repent to Him.","O Allah, send blessings upon Muhammad and the family of Muhammad.","Glory be to the One who has subjected this to us, and we could not have done so by ourselves.","O Allah, make it a beneficial rain.","All praise is for Allah.","I seek refuge in Allah from Satan, the accursed.","Indeed, we belong to Allah, and indeed, to Him we will return.","The thirst has gone, the veins are moistened, and the reward is confirmed, if Allah wills."][i]);
 function drawDuas(){let q=(document.getElementById('duasearch')?.value||'').toLowerCase();document.getElementById('dualist').innerHTML=duas.filter(d=>d.join(' ').toLowerCase().includes(q)).map(d=>'<div class="ayah"><b>'+d[0]+'</b><div class="arabic">'+d[1]+'</div><p class="translation">'+(language==='en'?d[4]||d[2]:d[2])+'</p><div class="meta">'+d[3]+'</div></div>').join('')}
 const dhikrs=[{name:'أَسْتَغْفِرُ اللّٰهَ',urdu:'استغفراللہ',meaning:'میں اللہ سے بخشش مانگتا ہوں'},{name:'سُبْحَانَ اللّٰهِ',urdu:'سبحان اللہ',meaning:'اللہ پاک ہے'},{name:'الْحَمْدُ لِلّٰهِ',urdu:'الحمدللہ',meaning:'تمام تعریف اللہ کے لیے ہے'},{name:'اللّٰهُ أَكْبَرُ',urdu:'اللہ اکبر',meaning:'اللہ سب سے بڑا ہے'}];
