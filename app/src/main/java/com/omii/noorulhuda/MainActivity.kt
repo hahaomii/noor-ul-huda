@@ -61,7 +61,11 @@ class MainActivity : Activity() {
         }
         webView.addJavascriptInterface(PrayerBridge(), "PrayerBridge")
         kidTts = TextToSpeech(this) { status ->
-            if (status == TextToSpeech.SUCCESS) kidTts?.language = Locale("ar", "SA")
+            if (status == TextToSpeech.SUCCESS) {
+                val arabic = Locale("ar", "SA")
+                val languageResult = kidTts?.isLanguageAvailable(arabic) ?: TextToSpeech.LANG_NOT_SUPPORTED
+                kidTts?.language = if (languageResult >= TextToSpeech.LANG_AVAILABLE) arabic else Locale("ar")
+            }
         }
         webView.addJavascriptInterface(KidVoiceBridge(), "KidVoiceBridge")
         setContentView(webView)
