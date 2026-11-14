@@ -27,3 +27,13 @@ Follow `BUILD_FROM_MOBILE_UR.md`. Upload the contents of this folder to a GitHub
 - The Hadith screen currently renders the first 150 records initially; pagination and chapter/book navigation remain to be added.
 - Offline Quran/audio downloads, background playback controls, prayer-time notifications, tafsir, and other hadith collections are not included yet.
 - No APK has yet been compiled or tested on a physical device.
+
+
+## Islamic Edition (branch: `islamic-edition`)
+
+This branch is the separate audio-focused edition. The Quran screen opens Audio Quran only; written Quran Arabic and translation reading screens are not exposed in this edition pending independent scholarly verification. The original `main` branch is unchanged.
+
+### Build APK from GitHub Actions
+A workflow is included at `.github/workflows/build-apk.yml`. It installs Java 17 and Gradle 8.9, runs `gradle assembleDebug`, and uploads `app-debug.apk` as the `Noor-ul-Huda-Islamic-Edition-APK` artifact. Open the repository's Actions tab, select the latest run for `islamic-edition`, and download its artifact after the run succeeds.
+
+Audio streaming and gallery downloads require an internet connection. The in-app mini-player remains available while navigating between app pages. Background playback after the Android app is force-closed has not yet been verified on a physical device.
