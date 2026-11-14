@@ -186,7 +186,7 @@ function home(){
    <button class="tile" onclick="go('tools')"><div class="ico">📿</div><b>Dhikr & Tasbeeh</b><small>Daily remembrance</small></button>
    <button class="tile" onclick="go('azan')"><div class="ico">🕌</div><b>Prayer & Azan</b><small>Prayer times and alerts</small></button>
    <button class="tile" onclick="go('janaza')"><div class="ico">🕊️</div><b>Funeral Prayer</b><small>Male & female • full method and duas</small></button>
-   <button class="tile" onclick="go('kidsGame')"><div class="ico">🎯</div><b>Kids' Target Game</b><small>Fun aim-and-tap game with Islamic phrases</small></button>
+   <button class="tile" onclick="go('games')"><div class="ico">🎮</div><b>Kids' Games</b><small>Two fun Islamic games</small></button>
    <button class="tile" onclick="showQuranNote()"><div class="ico">ℹ️</div><b>Important Note</b><small>Why this edition has audio Quran only</small></button>
   </div>
   <div class="home-section-title">Listen to the Holy Quran</div>
@@ -203,27 +203,46 @@ function home(){
    <button class="tile" onclick="go('tools')"><div class="ico">📿</div><b>اذکار و تسبیح</b><small>روزانہ اللہ کا ذکر</small></button>
    <button class="tile" onclick="go('azan')"><div class="ico">🕌</div><b>نماز اور اذان</b><small>نماز کے اوقات اور نوٹیفکیشن</small></button>
    <button class="tile" onclick="go('janaza')"><div class="ico">🕊️</div><b>نمازِ جنازہ</b><small>مرد و عورت • مکمل طریقہ اور دعائیں</small></button>
-   <button class="tile" onclick="go('kidsGame')"><div class="ico">🎯</div><b>بچوں کا نشانہ گیم</b><small>دلچسپ کھیل اور خوبصورت اسلامی کلمات</small></button>
+   <button class="tile" onclick="go('games')"><div class="ico">🎮</div><b>بچوں کی گیمز</b><small>دو دلچسپ اسلامی کھیل</small></button>
    <button class="tile" onclick="showQuranNote()"><div class="ico">ℹ️</div><b>نوٹ کریں / توجہ فرمائیں</b><small>قرآنِ مجید کا تحریری متن کیوں شامل نہیں؟</small></button>
   </div>
   <div class="home-section-title">قرآنِ کریم سنیں</div>
   <div class="home-quran-card"><div class="home-card-left"><span class="qicon">🎧</span><div><h4>سورت وار تلاوت</h4><p>قاری مشاری راشد العفاسی</p></div></div><button onclick="go('quran')">سنیں</button></div>
   <section class="section" style="margin-top:16px"><h2>آج کی یاد دہانی</h2><div id="reminderContent"></div><button class="btn primary" onclick="refreshReminder()">↻ یاد دہانی تبدیل کریں</button></section>`;
 }
-function render(){if(current==='home'){app.innerHTML=home();let n=localStorage.getItem('noorName');if(n){document.getElementById('greet').textContent='خوش آمدید، '+n;document.getElementById('username').value=n}drawReminder();return}if(current==='quran'){quranPage();return}if(current==='hadith'){hadithPageView();return}if(current==='dua'){app.innerHTML=language==='en'?'<section class="section"><h2>Daily Duas</h2><p class="muted">Arabic text, English translation and reference</p><input class="field" id="duasearch" placeholder="Search duas"><div id="dualist"></div></section>':'<section class="section"><h2>مسنون دعائیں</h2><p class="muted">عربی متن، اردو ترجمہ اور حوالہ</p><input class="field" id="duasearch" placeholder="دعا تلاش کریں"><div id="dualist"></div></section>';drawDuas();document.getElementById('duasearch').oninput=drawDuas;return}if(current==='tools'){toolsPage();return}if(current==='history'){historyPage();return}if(current==='prophets'){prophetHistoryPage();return}if(current==='photoGallery'){photoGalleryPage();return}if(current==='weather'){weatherPage();return}if(current==='azan'){azanPage();return}if(current==='janaza'){janazaPage();return}if(current==='kidsGame'){kidsGamePage();return}}
+function render(){if(current==='home'){app.innerHTML=home();let n=localStorage.getItem('noorName');if(n){document.getElementById('greet').textContent='خوش آمدید، '+n;document.getElementById('username').value=n}drawReminder();return}if(current==='quran'){quranPage();return}if(current==='hadith'){hadithPageView();return}if(current==='dua'){app.innerHTML=language==='en'?'<section class="section"><h2>Daily Duas</h2><p class="muted">Arabic text, English translation and reference</p><input class="field" id="duasearch" placeholder="Search duas"><div id="dualist"></div></section>':'<section class="section"><h2>مسنون دعائیں</h2><p class="muted">عربی متن، اردو ترجمہ اور حوالہ</p><input class="field" id="duasearch" placeholder="دعا تلاش کریں"><div id="dualist"></div></section>';drawDuas();document.getElementById('duasearch').oninput=drawDuas;return}if(current==='tools'){toolsPage();return}if(current==='history'){historyPage();return}if(current==='prophets'){prophetHistoryPage();return}if(current==='photoGallery'){photoGalleryPage();return}if(current==='weather'){weatherPage();return}if(current==='azan'){azanPage();return}if(current==='janaza'){janazaPage();return}if(current==='games'){gamesPage();return}if(current==='kidsGame'){kidsGamePage();return}if(current==='slapGame'){slapGamePage();return}}
 
 
+
+
+function gamesPage(){
+ const en=language==='en';
+ app.innerHTML='<button class="btn back" onclick="go(\\'home\\')">← '+(en?'Home':'ہوم')+'</button><section class="section"><h2>🎮 '+(en?'Kids Games':'بچوں کی گیمز')+'</h2><p class="muted">'+(en?'Choose a game to play':'اپنی پسند کا کھیل منتخب کریں')+'</p><div class="grid"><button class="tile" onclick="go(\\'kidsGame\\')"><div class="ico">🎯</div><b>'+(en?'Little Muslim Aim Game':'ننھے مسلم کا نشانہ')+'</b><small>'+(en?'Tap the moving shadow targets':'اڑتے ہوئے کارٹون سائے پر نشانہ لگائیں')+'</small></button><button class="tile" onclick="go(\\'slapGame\\')"><div class="ico">👋</div><b>'+(en?'Funny Devil Slap':'شرارتی شیطان کو تھپڑ')+'</b><small>'+(en?'Tap the funny cartoon devil':'کارٹون شیطان پر ٹیپ کریں')+'</small></button></div><p class="meta">'+(en?'Voice phrases are spoken by your device text-to-speech engine.':'اسلامی کلمات کی آواز موبائل کے عربی ٹیکسٹ ٹو اسپیچ سے سنائی جائے گی۔')+'</p></section>';
+}
+function slapGamePage(){
+ const en=language==='en';
+ app.innerHTML='<button class="btn back" onclick="go(\\'games\\')">← '+(en?'Games':'گیمز')+'</button><section class="section center"><h2>👋 '+(en?'Funny Devil Slap':'شرارتی شیطان کو تھپڑ')+'</h2><p class="muted">'+(en?'Tap the cartoon character. Each tap plays the next phrase.':'کارٹون کردار پر ٹیپ کریں۔ ہر تھپڑ پر اگلا کلمہ سنائی دے گا۔')+'</p><div class="kidgame-wrap"><div class="kidgame-top"><div class="kidgame-score">'+(en?'Score':'اسکور')+': <span id="slapScore">0</span></div><div class="kidgame-score">'+(en?'Voice':'آواز')+': <span id="slapVoiceState">'+(en?'On':'آن')+'</span></div></div><button id="slapTarget" aria-label="Tap the cartoon devil" style="display:block;width:100%;min-height:260px;border:2px solid #d2b66f;border-radius:22px;background:radial-gradient(circle,#fff5d6,#d9ebd8);font-size:116px;line-height:1.2;touch-action:manipulation">😈<div id="slapCaption" style="font-size:17px;color:#244b39;font-weight:700">'+(en?'Tap me!':'مجھے تھپڑ مارو!')+'</div></button><div class="kidgame-actions"><button class="btn primary" id="slapToggle">'+(en?'Voice: On':'آواز: آن')+'</button><button class="btn" id="slapReset">'+(en?'Reset':'دوبارہ شروع')+'</button></div><div class="kidgame-help">'+(en?'A playful cartoon-only game. No real person is shown.':'یہ صرف ایک مزاحیہ کارٹون گیم ہے، کسی حقیقی شخص کی تصویر نہیں۔')+'</div></div></section>';
+ const target=document.getElementById('slapTarget'),score=document.getElementById('slapScore'),caption=document.getElementById('slapCaption'),toggle=document.getElementById('slapToggle'),state=document.getElementById('slapVoiceState');
+ const phrases=['بِسْمِ اللّٰهِ','اللّٰهُ أَكْبَرُ','مَا شَاءَ اللّٰهُ','الْحَمْدُ لِلّٰهِ','سُبْحَانَ اللّٰهِ','لَا إِلٰهَ إِلَّا اللّٰهُ','أَسْتَغْفِرُ اللّٰهَ','جَزَاكَ اللّٰهُ خَيْرًا','هَا هَا هَا'];
+ const labels=en?['Bismillah','Allahu Akbar','Masha Allah','Alhamdulillah','Subhan Allah','La ilaha illallah','Astaghfirullah','Jazak Allahu Khairan','Hahaha']:['بسم اللہ','اللہ اکبر','ماشاءاللہ','الحمدللہ','سبحان اللہ','لا الہ الا اللہ','استغفراللہ','جزاک اللہ خیراً','ہا ہا ہا'];
+ let count=0,voice=true;
+ function say(text){if(!voice)return;if(window.KidVoiceBridge&&KidVoiceBridge.speakArabic){KidVoiceBridge.speakArabic(text);return}if('speechSynthesis'in window){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='ar-SA';u.rate=.86;speechSynthesis.speak(u)}catch(e){}}}
+ target.addEventListener('click',()=>{count++;score.textContent=count;const i=(count-1)%phrases.length;caption.textContent=labels[i];target.firstChild.textContent=count%2?'😵':'😈';target.style.transform='scale(.96) rotate('+(count%2?'-2':'2')+'deg)';setTimeout(()=>{if(target.isConnected)target.style.transform=''},100);say(phrases[i])});
+ toggle.addEventListener('click',()=>{voice=!voice;toggle.textContent=en?'Voice: '+(voice?'On':'Off'):'آواز: '+(voice?'آن':'بند');state.textContent=en?(voice?'On':'Off'):(voice?'آن':'بند')});
+ document.getElementById('slapReset').addEventListener('click',()=>{count=0;score.textContent='0';caption.textContent=en?'Tap me!':'مجھے تھپڑ مارو!';target.firstChild.textContent='😈'});
+}
 
 function kidsGamePage(){
  const en=language==='en';
  app.innerHTML='<section class="section"><button class="btn back" onclick="go(\'home\')">← '+(en?'Home':'ہوم')+'</button><h2>🎯 '+(en?'Little Muslim Aim Game':'ننھے مسلم کا نشانہ')+'</h2><p class="muted">'+(en?'Help the young Muslim hero tap the playful shadow targets. No blood or scary scenes — targets pop into stars.':'ننھے مسلم ہیرو کی مدد کریں اور شرارتی سائے کو نشانہ لگائیں۔ کوئی خون یا خوفناک منظر نہیں؛ نشانہ ستاروں میں بدل جاتا ہے۔')+'</p><div class="kidgame-wrap"><div class="kidgame-top"><div class="kidgame-score"><span id="kidScoreLabel">'+(en?'Score':'اسکور')+'</span>: <span id="kidScore">0</span></div><div class="kidgame-score">⏱ <span id="kidTime">45</span>s</div><div class="kidgame-score" id="kidLevel">'+(en?'Ready?':'تیار ہیں؟')+'</div></div><canvas id="kidGameCanvas" width="360" height="490" aria-label="Tap flying targets"></canvas><div class="kidgame-actions"><button class="btn primary" id="kidStart">'+(en?'Start Game':'گیم شروع کریں')+'</button><button class="btn" id="kidSound">'+(en?'Voice: On':'آواز: آن')+'</button></div><div class="kidgame-help" id="kidHelp">'+(en?'Tap the flying shadow targets. Each hit earns a point and a kind Islamic phrase.':'اڑتے ہوئے شرارتی سائے پر ٹیپ کریں۔ ہر کامیاب نشانے پر ایک پوائنٹ اور ایک خوبصورت اسلامی کلمہ سنائی دے گا۔')+'</div></div></section>';
  const canvas=document.getElementById('kidGameCanvas'),ctx=canvas.getContext('2d'),scoreEl=document.getElementById('kidScore'),timeEl=document.getElementById('kidTime'),levelEl=document.getElementById('kidLevel'),help=document.getElementById('kidHelp'),startBtn=document.getElementById('kidStart'),soundBtn=document.getElementById('kidSound');
  let active=false,score=0,time=45,last=0,spawn=0,raf=0,voice=true,targets=[],shots=[],sparks=[],phrase=0;
- const phrases=['الْحَمْدُ لِلَّٰهِ','مَا شَاءَ اللّٰهُ','سُبْحَانَ اللّٰهِ','اللّٰهُ أَكْبَرُ'];
+ const phrases=['بِسْمِ اللّٰهِ','اللّٰهُ أَكْبَرُ','مَا شَاءَ اللّٰهُ','الْحَمْدُ لِلَّٰهِ','سُبْحَانَ اللّٰهِ'];
  const englishPhrases=['Alhamdulillah','Masha Allah','Subhan Allah','Allahu Akbar'];
  function speak(){
-  if(!voice||!('speechSynthesis' in window))return;
-  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(phrases[phrase]);u.lang='ar-SA';u.rate=.82;u.pitch=1.05;speechSynthesis.speak(u);}catch(e){}
+  if(!voice)return;
+  const words=phrases[phrase];
+  try{if(window.KidVoiceBridge&&KidVoiceBridge.speakArabic){KidVoiceBridge.speakArabic(words)}else if('speechSynthesis' in window){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(words);u.lang='ar-SA';u.rate=.82;u.pitch=1.05;speechSynthesis.speak(u);}}catch(e){}
   phrase=(phrase+1)%phrases.length;
  }
  function drawHero(){
@@ -257,7 +276,7 @@ function kidsGamePage(){
  }
  function finish(){
   active=false;cancelAnimationFrame(raf);startBtn.textContent=en?'Play Again':'دوبارہ کھیلیں';levelEl.textContent=en?'Finished':'مکمل';help.textContent=(en?'Great effort! Your score: ':'شاباش! آپ کا اسکور: ')+score;
-  if('speechSynthesis'in window)speechSynthesis.cancel();draw();
+  if('speechSynthesis'in window)speechSynthesis.cancel();if(window.KidVoiceBridge&&KidVoiceBridge.stop)KidVoiceBridge.stop();draw();
  }
  function frame(ts){
   if(!active)return;const dt=Math.min(40,ts-last||16);last=ts;spawn+=dt;time-=dt/1000;
