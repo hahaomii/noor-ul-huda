@@ -1,0 +1,1 @@
+3D globe upgrade: galaxy starfield, country and major city labels, place search, live solar terminator and location time-zone lookup.
