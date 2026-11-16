@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Earth Vision 3D</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+*{box-sizing:border-box}html,body,#map{height:100%;margin:0;font-family:Arial,sans-serif;background:#07111f}
+#map{position:absolute;inset:0}.top{position:absolute;z-index:1000;top:16px;left:14px;right:14px;display:flex;gap:9px;align-items:center}
+.brand{color:#eaf6ff;font-weight:800;letter-spacing:1.5px;font-size:15px;text-shadow:0 2px 8px #000}
+.search{display:flex;flex:1;background:#101f31eF;border:1px solid #4e7694;border-radius:13px;padding:5px}
+input{min-width:0;flex:1;border:0;outline:0;background:transparent;color:white;padding:10px;font-size:14px}
+button{border:0;border-radius:10px;background:#168bd0;color:white;padding:10px 13px;font-weight:700}
+.panel{position:absolute;z-index:1000;bottom:20px;left:14px;right:14px;background:#0c1b2beF;color:#eaf6ff;border:1px solid #31516b;border-radius:17px;padding:13px 15px;box-shadow:0 8px 30px #0008}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.muted{font-size:11px;color:#9eb7ca;margin-top:6px}.pill{font-size:11px;color:#8ed4ff;border:1px solid #32627f;border-radius:20px;padding:5px 8px}
+.leaflet-control-attribution{font-size:9px!important}
+</style></head><body>
+<div id="map"></div>
+<div class="top"><div class="brand">EARTH VISION 3D</div><div class="search"><input id="q" placeholder="Search city, area or place"><button onclick="searchPlace()">GO</button></div></div>
+<div class="panel"><div class="row"><b>Satellite Explorer</b><span class="pill">IMAGERY VIEW</span></div><div class="muted" id="status">Explore the world • Pinch to zoom • Drag to move</div><div class="row" style="margin-top:10px"><button onclick="locate()">My location</button><button onclick="zoomTo(2)">World view</button><button onclick="zoomTo(18)">Zoom in</button></div><div class="muted">Image freshness and detail vary by location. Satellite imagery is not live; check source dates where available.</div></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const map=L.map('map',{zoomControl:false,worldCopyJump:true}).setView([24.7136,46.6753],5);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,attribution:'Imagery © Esri, Maxar, Earthstar Geographics'}).addTo(map);
+L.control.zoom({position:'bottomright'}).addTo(map);
+function zoomTo(z){map.setZoom(z)}
+async function searchPlace(){let q=document.getElementById('q').value.trim();if(!q)return;document.getElementById('status').textContent='Searching…';try{let r=await fetch('https://nominatim.openstreetmap.org/search?format=json&q='+encodeURIComponent(q));let d=await r.json();if(!d.length){document.getElementById('status').textContent='Place not found';return}map.setView([+d[0].lat,+d[0].lon],16);document.getElementById('status').textContent=d[0].display_name;}catch(e){document.getElementById('status').textContent='Search unavailable. Try again.'}}
+function locate(){if(!navigator.geolocation){document.getElementById('status').textContent='Location is not supported';return}navigator.geolocation.getCurrentPosition(p=>{map.setView([p.coords.latitude,p.coords.longitude],17);L.marker([p.coords.latitude,p.coords.longitude]).addTo(map).bindPopup('Your location').openPopup()},()=>document.getElementById('status').textContent='Location permission was not granted')}
+document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter')searchPlace()});
+</script></body></html>
