@@ -1,3 +1,5 @@
 3D globe upgrade: galaxy starfield, country and major city labels, place search, live solar terminator and location time-zone lookup.
 
 HD Cesium globe + Android location permission build trigger 2026-11-16.
+
+Fix: force an explicit nadir camera orientation and explicitly show the globe so the initial view cannot remain pointed at the star background.
