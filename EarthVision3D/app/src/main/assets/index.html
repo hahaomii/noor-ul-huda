@@ -77,11 +77,11 @@ function init(){
  const imagery=new Cesium.UrlTemplateImageryProvider({url:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',maximumLevel:19,credit:'Esri World Imagery'});
  const labels=new Cesium.UrlTemplateImageryProvider({url:'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',maximumLevel:19,credit:'Esri labels'});
  viewer=new Cesium.Viewer('cesiumContainer',{animation:false,timeline:false,baseLayerPicker:false,geocoder:false,homeButton:false,sceneModePicker:false,navigationHelpButton:false,fullscreenButton:false,infoBox:false,selectionIndicator:false,baseLayer:false,terrainProvider:new Cesium.EllipsoidTerrainProvider(),requestRenderMode:false});
- viewer.imageryLayers.removeAll();viewer.imageryLayers.addImageryProvider(imagery);viewer.imageryLayers.addImageryProvider(labels);
- viewer.scene.globe.enableLighting=true;viewer.scene.globe.showGroundAtmosphere=true;viewer.scene.globe.showWaterEffect=true;
+ viewer.imageryLayers.removeAll();viewer.imageryLayers.addImageryProvider(imagery);viewer.imageryLayers.addImageryProvider(labels);viewer.scene.globe.show=true;
+ viewer.scene.globe.show=true;viewer.scene.globe.enableLighting=true;viewer.scene.globe.showGroundAtmosphere=true;viewer.scene.globe.showWaterEffect=true;viewer.scene.globe.depthTestAgainstTerrain=false;
  viewer.scene.skyAtmosphere.show=true;viewer.scene.sun.show=true;viewer.scene.moon.show=true;
  viewer.scene.backgroundColor=Cesium.Color.BLACK;viewer.clock.shouldAnimate=true;
- viewer.camera.setView({destination:carto(15,10,23000000)});
+ viewer.camera.setView({destination:carto(0,0,18000000),orientation:{heading:0,pitch:-Cesium.Math.PI_OVER_TWO,roll:0}});
  viewer.screenSpaceEventHandler.setInputAction(async movement=>{
   const c=viewer.camera.pickEllipsoid(movement.position,viewer.scene.globe.ellipsoid);if(!c)return;
   const p=Cesium.Cartographic.fromCartesian(c),lat=Cesium.Math.toDegrees(p.latitude),lon=Cesium.Math.toDegrees(p.longitude);
@@ -92,7 +92,7 @@ function init(){
 }
 $('go').onclick=search;$('q').addEventListener('keydown',e=>{if(e.key==='Enter')search()});
 $('myLoc').onclick=locate;
-$('home').onclick=()=>viewer.camera.flyTo({destination:carto(15,10,23000000),duration:2});
+$('home').onclick=()=>viewer.camera.flyTo({destination:carto(0,0,18000000),orientation:{heading:0,pitch:-Cesium.Math.PI_OVER_TWO,roll:0},duration:2});
 $('zin').onclick=()=>viewer.camera.zoomIn(viewer.camera.positionCartographic.height*.48);
 $('zout').onclick=()=>viewer.camera.zoomOut(viewer.camera.positionCartographic.height*.8);
 $('sat').onclick=()=>{labelsOn=!labelsOn;viewer.imageryLayers.get(1).show=labelsOn;$('sat').textContent=labelsOn?'Hide labels':'Show labels'};
