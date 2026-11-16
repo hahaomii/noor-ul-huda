@@ -1,28 +1,80 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Earth Vision 3D</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
-*{box-sizing:border-box}html,body,#map{height:100%;margin:0;font-family:Arial,sans-serif;background:#07111f}
-#map{position:absolute;inset:0}.top{position:absolute;z-index:1000;top:16px;left:14px;right:14px;display:flex;gap:9px;align-items:center}
-.brand{color:#eaf6ff;font-weight:800;letter-spacing:1.5px;font-size:15px;text-shadow:0 2px 8px #000}
-.search{display:flex;flex:1;background:#101f31eF;border:1px solid #4e7694;border-radius:13px;padding:5px}
+*{box-sizing:border-box}html,body,#globeViz{height:100%;width:100%;margin:0;overflow:hidden;background:#020611;font-family:Arial,sans-serif}
+#globeViz{position:absolute;inset:0}.top{position:absolute;z-index:5;top:14px;left:12px;right:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.brand{color:#eaf6ff;font-weight:900;letter-spacing:1.3px;font-size:14px;text-shadow:0 2px 12px #000}
+.search{display:flex;flex:1;min-width:190px;background:#08182beF;border:1px solid #47718f;border-radius:13px;padding:4px}
 input{min-width:0;flex:1;border:0;outline:0;background:transparent;color:white;padding:10px;font-size:14px}
-button{border:0;border-radius:10px;background:#168bd0;color:white;padding:10px 13px;font-weight:700}
-.panel{position:absolute;z-index:1000;bottom:20px;left:14px;right:14px;background:#0c1b2beF;color:#eaf6ff;border:1px solid #31516b;border-radius:17px;padding:13px 15px;box-shadow:0 8px 30px #0008}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.muted{font-size:11px;color:#9eb7ca;margin-top:6px}.pill{font-size:11px;color:#8ed4ff;border:1px solid #32627f;border-radius:20px;padding:5px 8px}
-.leaflet-control-attribution{font-size:9px!important}
-</style></head><body>
-<div id="map"></div>
-<div class="top"><div class="brand">EARTH VISION 3D</div><div class="search"><input id="q" placeholder="Search city, area or place"><button onclick="searchPlace()">GO</button></div></div>
-<div class="panel"><div class="row"><b>Satellite Explorer</b><span class="pill">IMAGERY VIEW</span></div><div class="muted" id="status">Explore the world • Pinch to zoom • Drag to move</div><div class="row" style="margin-top:10px"><button onclick="locate()">My location</button><button onclick="zoomTo(2)">World view</button><button onclick="zoomTo(18)">Zoom in</button></div><div class="muted">Image freshness and detail vary by location. Satellite imagery is not live; check source dates where available.</div></div>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+button{border:0;border-radius:10px;background:#087fbd;color:white;padding:10px 12px;font-weight:700}
+.panel{position:absolute;z-index:5;bottom:14px;left:12px;right:12px;background:#07172beF;color:#eaf6ff;border:1px solid #31516b;border-radius:16px;padding:12px 14px;box-shadow:0 8px 30px #0009}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.muted{font-size:11px;color:#a7bfd2;margin-top:6px;line-height:1.4}.pill{font-size:10px;color:#8ed4ff;border:1px solid #32627f;border-radius:20px;padding:5px 8px}
+.actions{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}.actions button{flex:1}
+#status{overflow-wrap:anywhere}.globe-label{color:white;font-size:10px;text-shadow:0 1px 4px #000}
+</style>
+</head>
+<body>
+<div id="globeViz"></div>
+<div class="top"><div class="brand">EARTH VISION 3D</div><div class="search"><input id="q" placeholder="Search country, city, street or place"><button id="go">SEARCH</button></div></div>
+<div class="panel"><div class="row"><b>🌍 3D Earth • Galaxy View</b><span class="pill">LIVE SUN POSITION</span></div><div class="muted" id="status">Loading 3D Earth…</div><div class="muted" id="clock">Local time zone: locating…</div><div class="actions"><button id="myLoc">My location</button><button id="home">Whole Earth</button><button id="zoom">Zoom in</button></div><div class="muted">Day/night follows the real Sun using UTC time. Local clock is looked up for the selected place. Satellite imagery is not live; image detail and update dates vary by area.</div></div>
+<script src="https://unpkg.com/globe.gl"></script>
+<script src="https://unpkg.com/topojson-client@3"></script>
+<script src="https://unpkg.com/d3-geo@3"></script>
 <script>
-const map=L.map('map',{zoomControl:false,worldCopyJump:true}).setView([24.7136,46.6753],5);
-L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,attribution:'Imagery © Esri, Maxar, Earthstar Geographics'}).addTo(map);
-L.control.zoom({position:'bottomright'}).addTo(map);
-function zoomTo(z){map.setZoom(z)}
-async function searchPlace(){let q=document.getElementById('q').value.trim();if(!q)return;document.getElementById('status').textContent='Searching…';try{let r=await fetch('https://nominatim.openstreetmap.org/search?format=json&q='+encodeURIComponent(q));let d=await r.json();if(!d.length){document.getElementById('status').textContent='Place not found';return}map.setView([+d[0].lat,+d[0].lon],16);document.getElementById('status').textContent=d[0].display_name;}catch(e){document.getElementById('status').textContent='Search unavailable. Try again.'}}
-function locate(){if(!navigator.geolocation){document.getElementById('status').textContent='Location is not supported';return}navigator.geolocation.getCurrentPosition(p=>{map.setView([p.coords.latitude,p.coords.longitude],17);L.marker([p.coords.latitude,p.coords.longitude]).addTo(map).bindPopup('Your location').openPopup()},()=>document.getElementById('status').textContent='Location permission was not granted')}
-document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter')searchPlace()});
-</script></body></html>
+const statusEl=document.getElementById('status'),clockEl=document.getElementById('clock');
+const globe=Globe()(document.getElementById('globeViz'))
+ .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+ .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
+ .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
+ .showAtmosphere(true).atmosphereColor('#65b9ff').atmosphereAltitude(0.18)
+ .pointAltitude('alt').pointColor('color').pointRadius(0.22)
+ .labelText('name').labelSize(0.55).labelDotRadius(0.12).labelColor(()=> '#f4fbff')
+ .labelResolution(2).labelsTransitionDuration(500)
+ .onGlobeClick(({lat,lng})=>lookupTimezone(lat,lng,'Selected location'));
+globe.width(window.innerWidth).height(window.innerHeight);
+globe.pointOfView({lat:20,lng:10,altitude:2.6},0);
+let selectedMarker=null, zoomLevel=2.6;
+const capitals=[
+{name:'London',lat:51.5072,lng:-0.1276},{name:'New York',lat:40.7128,lng:-74.006},
+{name:'Tokyo',lat:35.6762,lng:139.6503},{name:'Riyadh',lat:24.7136,lng:46.6753},
+{name:'Makkah',lat:21.3891,lng:39.8579},{name:'Madinah',lat:24.4672,lng:39.6024},
+{name:'Islamabad',lat:33.6844,lng:73.0479},{name:'Faisalabad',lat:31.4504,lng:73.135},
+{name:'Dubai',lat:25.2048,lng:55.2708},{name:'Cairo',lat:30.0444,lng:31.2357},
+{name:'Paris',lat:48.8566,lng:2.3522},{name:'Berlin',lat:52.52,lng:13.405},
+{name:'Sydney',lat:-33.8688,lng:151.2093},{name:'Delhi',lat:28.6139,lng:77.209},
+{name:'Istanbul',lat:41.0082,lng:28.9784},{name:'Toronto',lat:43.6532,lng:-79.3832},
+{name:'Cape Town',lat:-33.9249,lng:18.4241},{name:'Singapore',lat:1.3521,lng:103.8198}
+];
+globe.labelsData(capitals).labelLat(d=>d.lat).labelLng(d=>d.lng).labelText(d=>d.name);
+globe.pointsData([]); 
+// Country labels are generated from the public Natural Earth country boundaries.
+fetch('https://unpkg.com/world-atlas@2/countries-110m.json').then(r=>r.json()).then(world=>{
+ const features=topojson.feature(world,world.objects.countries).features;
+ const names={4:'Afghanistan',8:'Albania',12:'Algeria',32:'Argentina',36:'Australia',50:'Bangladesh',76:'Brazil',124:'Canada',156:'China',170:'Colombia',276:'Germany',356:'India',360:'Indonesia',364:'Iran',368:'Iraq',392:'Japan',398:'Kazakhstan',404:'Kenya',410:'South Korea',414:'Kuwait',458:'Malaysia',484:'Mexico',504:'Morocco',524:'Nepal',566:'Nigeria',586:'Pakistan',608:'Philippines',643:'Russia',682:'Saudi Arabia',710:'South Africa',724:'Spain',752:'Sweden',756:'Switzerland',792:'Turkey',784:'United Arab Emirates',826:'United Kingdom',840:'United States'};
+ const labels=features.filter(f=>names[+f.id]).map(f=>{const c=d3.geoCentroid(f);return {name:names[+f.id],lat:c[1],lng:c[0]};});
+ globe.labelsData([...capitals,...labels]).labelLat(d=>d.lat).labelLng(d=>d.lng).labelText(d=>d.name).labelSize(d=>names && Object.values(names).includes(d.name)?0.48:0.62);
+ statusEl.textContent='3D Earth ready • Country and major city names shown • Drag to rotate, pinch to zoom';
+}).catch(()=>{statusEl.textContent='3D Earth ready • Major city labels shown';});
+function sunSubpoint(date){const rad=Math.PI/180,day=(date-Date.UTC(date.getUTCFullYear(),0,0))/86400000;const g=2*Math.PI/365*(day-1+(date.getUTCHours()-12)/24);const decl=0.006918-0.399912*Math.cos(g)+0.070257*Math.sin(g)-0.006758*Math.cos(2*g)+0.000907*Math.sin(2*g)-0.002697*Math.cos(3*g)+0.00148*Math.sin(3*g);const eq=229.18*(0.000075+0.001868*Math.cos(g)-0.032077*Math.sin(g)-0.014615*Math.cos(2*g)-0.040849*Math.sin(2*g));const minutes=date.getUTCHours()*60+date.getUTCMinutes()+date.getUTCSeconds()/60;let lon=(720-minutes-eq)/4;lon=((lon+540)%360)-180;return {lat:decl/rad,lng:lon};}
+function updateSun(){const s=sunSubpoint(new Date());globe.lightsData([{lat:s.lat,lng:s.lng,radius:90}]);}
+updateSun();setInterval(updateSun,60000);
+async function lookupTimezone(lat,lon,place){
+ clockEl.textContent='Finding local time zone…';
+ try{const r=await fetch('https://timeapi.io/api/Time/current/coordinate?latitude='+lat+'&longitude='+lon);if(!r.ok)throw Error('timezone');const d=await r.json();const zone=d.timeZone||d.timezone||'Local time zone';const time=d.time||d.dateTime||'';clockEl.textContent='Local time: '+time+' • '+zone+' (auto-updated)';}
+ catch(e){clockEl.textContent='Time zone lookup unavailable • Earth day/night remains synced to UTC';}
+}
+async function searchPlace(){const q=document.getElementById('q').value.trim();if(!q)return;statusEl.textContent='Searching for '+q+'…';
+ try{const r=await fetch('https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=1&q='+encodeURIComponent(q));const a=await r.json();if(!a.length){statusEl.textContent='No result found. Try another spelling.';return;}
+ const p=a[0],lat=+p.lat,lon=+p.lon;globe.pointOfView({lat,lng:lon,altitude:0.22},1400);
+ const title=p.name||p.display_name.split(',')[0];globe.pointsData([{lat,lng:lon,alt:0.012,color:'#ffcf55'}]);statusEl.textContent=(p.display_name||title);lookupTimezone(lat,lon,title);
+ }catch(e){statusEl.textContent='Search service unavailable. Check internet and try again.'}}
+document.getElementById('go').onclick=searchPlace;document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter')searchPlace()});
+document.getElementById('home').onclick=()=>{globe.pointOfView({lat:20,lng:10,altitude:2.6},1200);statusEl.textContent='Whole Earth • Galaxy view';};
+document.getElementById('zoom').onclick=()=>{const p=globe.pointOfView();globe.pointOfView({...p,altitude:Math.max(0.08,p.altitude*0.65)},700)};
+document.getElementById('myLoc').onclick=()=>{if(!navigator.geolocation){statusEl.textContent='Location is not supported on this device';return;}statusEl.textContent='Finding your location…';navigator.geolocation.getCurrentPosition(p=>{const lat=p.coords.latitude,lon=p.coords.longitude;globe.pointOfView({lat,lng:lon,altitude:0.18},1200);globe.pointsData([{lat,lng:lon,alt:0.012,color:'#65e6a5'}]);statusEl.textContent='Your current location';lookupTimezone(lat,lon,'Your location');},()=>statusEl.textContent='Allow location permission in app settings and try again',{enableHighAccuracy:true,timeout:12000});};
+window.addEventListener('resize',()=>globe.width(window.innerWidth).height(window.innerHeight));
+</script>
+</body></html>
