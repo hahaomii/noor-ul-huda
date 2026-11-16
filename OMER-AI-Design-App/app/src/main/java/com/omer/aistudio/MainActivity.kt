@@ -209,7 +209,7 @@ fun VideoPage(modifier: Modifier = Modifier) {
     Column(modifier.fillMaxSize().padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         PageTitle("Video Maker", "Build your next short video")
         ToolRow("Photo slideshow", "Turn selected photos into a video", Icons.Default.Slideshow) {}
-        ToolRow("Script to scenes", "Plan scenes from your script", Icons.Default.MovieEdit) {}
+        ToolRow("Script to scenes", "Plan scenes from your script", Icons.Default.Movie) {}
         ToolRow("Voice-over", "Narration tools coming next", Icons.Default.RecordVoiceOver) {}
         Text("Video rendering and AI generation are planned modules; they are not active in this starter APK yet.", color = Muted, fontSize = 12.sp)
     }
