@@ -34,6 +34,7 @@ private val Muted = Color(0xFFB8AFC8)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        StudioContextHolder.context = applicationContext
         setContent { StudioApp() }
     }
 }
